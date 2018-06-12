@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cccccc"
+    tools:context="com.example.kiran.be_you.ChatActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarchat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white">
+
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8888"
+        android:id="@+id/chat_status"
+        android:text=""
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit ="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
+        android:padding="2dp"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/toolbarchat"
+         />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonslinearlayout"
+        android:layout_below="@+id/chat_status">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/messageslist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+
+            android:scrollbars="vertical">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonslinearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:background="@android:color/white">
+
+        <ImageButton
+            android:id="@+id/addimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.5"
+            android:background="@android:color/white"
+            android:contentDescription="@string/add_image"
+            android:padding="10dp"
+            android:src="@mipmap/addblack" />
+
+        <EditText
+            android:id="@+id/write_message"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:paddingBottom="10dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="10dp"
+            android:paddingTop="12dp"
+            android:hint="@string/write_message1"
+            android:background="@android:color/white"
+            android:inputType="text"
+            tools:ignore="LabelFor"
+            android:maxLines="1" />
+
+        <ImageButton
+            android:id="@+id/send_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:alpha="0.5"
+            android:background="@android:color/white"
+            android:contentDescription="@string/btn_send"
+            android:padding="10dp"
+            app:srcCompat="@mipmap/send" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

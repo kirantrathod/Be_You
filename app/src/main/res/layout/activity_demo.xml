@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kiran.be_you.demo">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo"
+        android:textSize="40sp"
+        android:padding="40dp"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="100dp"
+        android:id="@+id/textInputLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/demo_text"
+            android:inputType="text"
+            android:padding="7dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/input_outline"
+            android:hint="@string/enter_text_to_insert_in_database"/>
+
+    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:id="@+id/demo_submitbtn"
+        android:textColor="@android:color/white"
+        android:background="@drawable/mybutton"
+        android:layout_below="@+id/textInputLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="134dp"
+        android:layout_marginLeft="134dp"
+        android:layout_marginTop="35dp" />
+
+    <Button
+        android:id="@+id/adbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/demo_submitbtn"
+        android:layout_alignRight="@+id/demo_submitbtn"
+        android:layout_below="@+id/demo_submitbtn"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:background="@drawable/my_custom_button_practice"
+        android:layout_marginTop="72dp"
+        android:text="@string/go_to_adview" />
+
+    <Button
+        android:id="@+id/adbutton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/adbutton"
+        android:layout_alignRight="@+id/adbutton"
+        android:background="@drawable/mybutton"
+        android:layout_below="@+id/adbutton"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="29dp"
+        android:padding="10dp"
+        android:text="Go to interstitial"
+        android:textColor="@android:color/white"
+        tools:ignore="HardcodedText" />
+
+
+</RelativeLayout>

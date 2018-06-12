@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+
+    <item android:title="@string/account_settings"
+        android:id="@+id/menu_accountsettings"
+        android:icon="@mipmap/ic_account_circle_white_18dp"
+        app:showAsAction="always|withText"
+        tools:ignore="AlwaysShowAction"></item>
+    <item android:id="@+id/action_add"
+        android:icon="@mipmap/ic_add_white_24dp"
+        android:title="@string/add_post1"
+        app:showAsAction="never"></item>
+    <item android:id="@+id/action_post"
+        android:title="@string/posts"
+        app:showAsAction="never"></item>
+    <item android:id="@+id/action_alluser"
+        android:icon="@mipmap/ic_supervisor_account_white_18dp"
+        android:title="@string/all_users"
+        app:showAsAction="always|withText"/>
+    <item android:title="@string/sign_out"
+        android:id="@+id/menu_signout"
+        android:icon="@mipmap/ic_power_settings_new_white_18dp"
+        app:showAsAction="always|withText"/>
+
+</menu>

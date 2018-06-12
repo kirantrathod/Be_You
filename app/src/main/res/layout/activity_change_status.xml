@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kiran.be_you.ChangeStatusActivity">
+    <EditText
+        android:id="@+id/changestatus_plaintext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:hint="@string/your_status"
+        android:inputType="textMultiLine"
+        />
+
+    <Button
+        android:id="@+id/savechangbtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/changestatus_plaintext"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/mybutton"
+        android:text="@string/save_changes"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/writestatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_marginTop="45dp"
+        android:text="@string/write_new_status" />
+
+
+
+</RelativeLayout>
