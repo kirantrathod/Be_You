@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/singleprofile_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/icon" />
+
+    <TextView
+        android:id="@+id/singledisplayname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/singleprofile_image"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/singleprofile_image"
+        android:text="@string/display_names09"
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/singlestatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/singledisplayname"
+        android:layout_below="@+id/singledisplayname"
+        android:layout_marginTop="4dp"
+        android:text="@string/default_status"
+        android:textColor="@android:color/black"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/singledate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@+id/singlestatus"
+        android:layout_marginTop="3dp"
+        android:layout_alignStart="@+id/singlestatus"
+        />
+
+    <ImageView
+        android:id="@+id/online_icon"
+        android:layout_width="13dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/online"
+        android:layout_below="@+id/singledisplayname"
+        android:visibility="invisible"
+        app:srcCompat="@mipmap/online"
+        android:layout_alignParentStart="@+id/singledisplayname"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="78dp" />
+
+</RelativeLayout>

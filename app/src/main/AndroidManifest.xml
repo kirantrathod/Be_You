@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.kiran.be_you">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".Be_you"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service android:name=".FirebaseMessagingservice">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".MainActivity">
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignupActivity"
+            android:label="Create Account"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:label="ResetPassword"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="Log In" />
+        <activity
+            android:name=".AccountSettingActivity"
+            android:label="Account Setting"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".BlogActivity"
+            android:label="Add Post"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ChangeStatusActivity"
+            android:label="Change Status"
+            android:parentActivityName=".AccountSettingActivity" />
+        <activity
+            android:name=".AfterBlogActivity"
+            android:label="Timeline"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".UsersActivity"
+            android:label="All Users"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Profile"
+            android:parentActivityName=".UsersActivity">
+            <intent-filter>
+                <action android:name="com.example.kiran.be_you_notification" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:label="chat"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="com.example.kiran.be_you_message_message_notification" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".change_displayname"
+            android:label="Change Name"
+            android:parentActivityName=".AccountSettingActivity" />
+        <activity
+            android:name=".Sent_Requests"
+            android:label="Sent Friend Requests"
+            android:parentActivityName=".AccountSettingActivity" />
+        <activity android:name=".demo" />
+        <activity android:name=".show_demo" />
+        <activity
+            android:name=".finale"
+            android:parentActivityName=".AccountSettingActivity" />
+        <!-- This meta-data tag is required to use Google Play Services. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".AdShowing_Activity"
+            android:label="@string/title_activity_ad_showing_" /> <!-- Include the AdActivity configChanges and theme. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".First_Interstitial_Ad"
+            android:label="@string/title_activity_first__interstitial__ad"></activity>
+    </application>
+
+</manifest>

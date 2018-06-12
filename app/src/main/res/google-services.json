@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "149900061363",
+    "firebase_url": "https://gcekarad-d2903.firebaseio.com",
+    "project_id": "gcekarad-d2903",
+    "storage_bucket": "gcekarad-d2903.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149900061363:android:b75bd6165c28ae90",
+        "android_client_info": {
+          "package_name": "com.example.kiran.gce_karad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149900061363-lrbnn7ii8k669neapg5jiro93omha2km.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSV79dNt3r_K0TBjgbryLPEpr_LlppGZI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

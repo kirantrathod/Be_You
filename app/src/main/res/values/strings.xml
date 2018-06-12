@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">Be_You</string>
+    <string name="action_sign_in_short">Register</string>
+    <string name="email">Email</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_password">Change Password</string>
+    <string name="send_password_reset_email">Send Password reset email</string>
+    <string name="remove_user">Remove user</string>
+    <string name="new_pass">New Password</string>
+    <string name="title_activity_profile">Firebase</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="image">image</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">Sign In</string>
+    <string name="btn_link_to_register">Not have a account? Sign Up now!</string>
+    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="title_activity_reset_password">ResetPasswordActivity</string>
+    <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="hint_new_email">New Email</string>
+    <string name="btn_change">Change</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_remove">Remove</string>
+    <string name="btn_sign_out">Sign Out</string>
+    <string name="lbl_forgot_password">Forgot password?</string>
+    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="display_names">Display Names</string>
+    <string name="hey_there_i_am_using_be_you">Hey There I am using Be_You!</string>
+    <string name="change_status">Change Status</string>
+    <string name="change_image">Change Image</string>
+    <string name="display_name">Display Name</string>
+    <string name="post_title">Post Title..</string>
+    <string name="post_description">Post Description...</string>
+    <string name="submit_post">Submit Post</string>
+    <string name="your_status">Your status</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="write_new_status">Write New Status</string>
+    <string name="post_title_comes_here">post Title comes here</string>
+    <string name="post_description_comes_here">Post Description comes here</string>
+    <string name="default_status">Default Status</string>
+    <string name="display_names09">Display Names</string>
+    <string name="changeable">changeable</string>
+    <string name="display_names3">Display Names3</string>
+    <string name="status">status</string>
+    <string name="send_friend_request">send friend request</string>
+    <string name="decline_friend_request">Decline Friend request</string>
+    <string name="friends_from">Friends from</string>
+    <string name="friends_fromdate">Friends From:</string>
+    <string name="date">date</string>
+    <string name="online">online</string>
+    <string name="add_image">add_image</string>
+    <string name="profileimage">profileimage</string>
+    <string name="displayname">Displayname</string>
+    <string name="last_seen">Last Seen</string>
+    <string name="display_name1">Display Name</string>
+    <string name="write_message">Write Message</string>
+    <string name="save_changes1">Save Changes</string>
+    <string name="write_message1">Write Message</string>
+    <string name="sign_up">sign up</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="add_post">Add Post</string>
+    <string name="string_add_post" />
+    <string name="all_users">All Users</string>
+    <string name="posts">Posts</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="textview">TextView</string>
+    <string name="_00_00">00:00</string>
+    <string name="gender">Gender:</string>
+    <string name="message">message</string>
+    <string name="type">type</string>
+    <string name="online1">Online</string>
+    <string name="kiran">kiran</string>
+    <string name="enter_text_to_insert_in_database">Enter text to insert in database</string>
+    <string name="submit">submit</string>
+    <string name="demo">Demo</string>
+    <string name="add_post1">Add Post</string>
+    <string-array name="gender_array">
+        <item>male</item>
+        <item>female</item>
+    </string-array>
+    <string name="title_activity_ad_showing_">AdShowing_Activity</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_world">Hello world!</string>
+    <!-- -
+        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="banner_ad_unit_id">ca-app-pub-2060393118710875/7714017925</string>
+    <string name="adid">ca-app-pub-2060393118710875/7714017925</string>
+    <string name="accountsettingactivity_adid">ca-app-pub-2060393118710875/9630692684</string>
+    <string name="title_activity_first__interstitial__ad">First_Interstitial_Ad</string>
+
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="interstitial_ad_unit_id">ca-app-pub-2060393118710875/7155985851</string>
+    <string name="go_to_adview">go to adview</string>
+</resources>

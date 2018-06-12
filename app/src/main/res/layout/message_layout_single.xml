@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="15dp"
+    android:layout_height="75dp"
+    android:layout_marginTop="3dp">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       tools:ignore="UselessParent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/singlemessageprofile_image"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/icon" />
+
+    <TextView
+        android:id="@+id/singlemessagedisplayname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/singlemessageprofile_image"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/singlemessageprofile_image"
+        android:text="@string/display_names09"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        tools:ignore="RelativeOverlap" />
+
+
+    <TextView
+        android:id="@+id/singlemessageview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/singlemessagedisplayname"
+        android:layout_below="@+id/singlemessagedisplayname"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/message"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:maxLines="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:text="@string/kiran"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="2dp"
+            tools:ignore="RelativeOverlap" />
+
+
+    <TextView
+        android:id="@+id/online_messageicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="78dp"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/online"
+        android:visibility="invisible"
+        android:text="@string/online1"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"
+        tools:ignore="RelativeOverlap" />
+
+
+   </RelativeLayout>
+</RelativeLayout>
