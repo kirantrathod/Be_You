@@ -92,9 +92,9 @@
         This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
-    <string name="banner_ad_unit_id">ca-app-pub-2060393118710875/7714017925</string>
-    <string name="adid">ca-app-pub-2060393118710875/7714017925</string>
-    <string name="accountsettingactivity_adid">ca-app-pub-2060393118710875/9630692684</string>
+    <string name="banner_ad_unit_id">your banner id</string>
+    <string name="adid">your add id</string>
+    <string name="accountsettingactivity_adid">your second_adid</string>
     <string name="title_activity_first__interstitial__ad">First_Interstitial_Ad</string>
 
     <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
@@ -104,6 +104,6 @@
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
-    <string name="interstitial_ad_unit_id">ca-app-pub-2060393118710875/7155985851</string>
+    <string name="interstitial_ad_unit_id">your interstitial_ad_id</string>
     <string name="go_to_adview">go to adview</string>
 </resources>
