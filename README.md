@@ -26,3 +26,8 @@ Be_You is a android chat application, which is kind of influenced by existing so
 <img src="https://user-images.githubusercontent.com/26267268/41977123-3c77a736-7a3c-11e8-9908-ab92283e6630.jpg" width="400" height="600">      <img src="https://user-images.githubusercontent.com/26267268/41977248-7c099d8c-7a3c-11e8-90fb-b1d9d02f7457.jpg" width="400" height="600">
  </p>
 
+
+
+Install .apk file in your android device by extracting given zip file below and create account if you are new to application 
+## Well thats it!!! You are ready to use application.
+[app-debug.zip](https://github.com/kirantrathod/Be_You/files/2161974/app-debug.zip)
