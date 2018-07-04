@@ -2,8 +2,8 @@
 
 Be_You is a android chat application, which is kind of influenced by existing social networking applications.
 ## LogIn Page:                                                 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/26267268/41976462-dab32cd8-7a3a-11e8-96a7-c4d4266f1cc8.jpg" width="400" height="600"> 
+<p align="center" style="border: 3px solid black">
+<img src="https://user-images.githubusercontent.com/26267268/41976462-dab32cd8-7a3a-11e8-96a7-c4d4266f1cc8.jpg" width="400" height="600" > 
 </p>
 
 ## Create Account Page:
@@ -25,3 +25,4 @@ Be_You is a android chat application, which is kind of influenced by existing so
 <p align="center">
 <img src="https://user-images.githubusercontent.com/26267268/41977123-3c77a736-7a3c-11e8-9908-ab92283e6630.jpg" width="400" height="600">      <img src="https://user-images.githubusercontent.com/26267268/41977248-7c099d8c-7a3c-11e8-90fb-b1d9d02f7457.jpg" width="400" height="600">
  </p>
+
