@@ -13,7 +13,7 @@ Be_You is a android chat application, which is kind of influenced by existing so
 
 ## Update Profile:
 <p align="center">
-<img src="(https://user-images.githubusercontent.com/26267268/41976865-a9348598-7a3b-11e8-9bad-db2aec1ab4dd.jpg" width="400" height="700">
+<img src="https://user-images.githubusercontent.com/26267268/41976865-a9348598-7a3b-11e8-9bad-db2aec1ab4dd.jpg" width="400" height="700">
 </p>
 
 
