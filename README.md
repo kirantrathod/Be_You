@@ -21,11 +21,7 @@ Be_You is a android chat application, which is kind of influenced by existing so
 <img src="https://user-images.githubusercontent.com/26267268/41976943-d4877282-7a3b-11e8-806b-e80767a9c41d.jpg" width="400" height="600">   <img src="https://user-images.githubusercontent.com/26267268/41977146-4949b828-7a3c-11e8-9cbe-41e4a934a446.jpg" width="400" height="600">
  </p>
  
- <p align="center">
+ 
+<p align="center">
 <img src="https://user-images.githubusercontent.com/26267268/41977123-3c77a736-7a3c-11e8-9908-ab92283e6630.jpg" width="400" height="600">   <img src="https://user-images.githubusercontent.com/26267268/41977248-7c099d8c-7a3c-11e8-90fb-b1d9d02f7457.jpg" width="400" height="600">
  </p>
-
-
-
-
-
