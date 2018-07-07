@@ -4,6 +4,7 @@ package com.example.kiran.be_you;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -41,6 +43,7 @@ public class ChatFragment extends Fragment {
     private DatabaseReference mDatabase2,muserref2;
     private FirebaseAuth mAuth2;
     private TextView mtime;
+    private FirebaseRecyclerAdapter<Messages,chatviewholder> chatrecycleradapter;
     private String mcurrent_userid2;
     private View mMainview2;
    // private Query db2;
@@ -85,15 +88,133 @@ public class ChatFragment extends Fragment {
         super.onStart();
         muserref2= FirebaseDatabase.getInstance().getReference().child("users").child(mAuth2.getCurrentUser().getUid());
         muserref2.child("online").setValue("true");
+        FirebaseRecyclerOptions<Messages> options2=
+                new FirebaseRecyclerOptions.Builder<Messages>()
+                .setQuery(mchatDatabase,Messages.class)
+                .setLifecycleOwner(this)
+                .build();
+                chatrecycleradapter=new
+                            FirebaseRecyclerAdapter<Messages, chatviewholder>(options2) {
+                    @NonNull
+                    @Override
+                    public chatviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_layout_single,parent,false);
+                        return new ChatFragment.chatviewholder(mView);
+                    }
 
-        FirebaseRecyclerAdapter<Messages,chatviewholder> chatrecycleradapter=new
-                FirebaseRecyclerAdapter<Messages, chatviewholder>(
-                        Messages.class,
-                R.layout.message_layout_single,
-                chatviewholder.class,
-                        mchatDatabase
-        ) {
-            @Override
+                    @Override
+                    protected void onBindViewHolder(@NonNull final chatviewholder holder, int position, @NonNull Messages model) {
+                        // viewHolder2.setMessage(model.getMessage());
+                        // viewHolder2.setType(model.getType());
+                        final String list_user_id1 = getRef(position).getKey();
+                        DatabaseReference sequesnce=mRootref.child("chat").child(mcurrent_userid2).child(list_user_id1);
+                        sequesnce.orderByChild("tiimestamp").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                mDatabase2.child(list_user_id1).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        final String username = dataSnapshot.child("name").getValue().toString();
+                                        final String userthumb_img = dataSnapshot.child("thumb_image").getValue().toString();
+                                        final String userstatus=dataSnapshot.child("status").getValue().toString();
+                                        final String gender=dataSnapshot.child("gender").getValue().toString();
+                                        if (dataSnapshot.hasChild("online")){
+                                            String useronline=dataSnapshot.child("online").getValue().toString();
+                                            holder.setUserOnline(useronline);
+                                        }
+                                        //  String userstatus = dataSnapshot.child("status").getValue().toString();
+                                        // String useronline=dataSnapshot.child("online").getValue().toString();
+                                        holder.setName(username);
+                                        //viewHolder2.setStatus(userstatus);
+                                        holder.setThumb_image(userthumb_img, getContext());
+
+
+                                        holder.mview2.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent10 = new Intent(getContext(), ChatActivity.class);
+                                                intent10.putExtra("user_id", list_user_id1);
+                                                intent10.putExtra("user_name",username);
+                                                intent10.putExtra("user_status",userstatus);
+                                                intent10.putExtra("user_profileimage",userthumb_img);
+                                                intent10.putExtra("gender",gender);
+                                                startActivity(intent10);
+                                                muserref2.child("online").setValue("true");
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+                        mchatDatabase.child(list_user_id1).orderByChild("time").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot Snapshot, String s) {
+                                String message=Snapshot.child("message").getValue().toString();
+                                holder.setMessage(message);
+                                String lastmsg_time=Snapshot.child("time").getValue().toString();
+                                //String image=dataSnapshot.child("image").getValue().toString();
+
+                                Get_Time_ago getTimeAgo=new Get_Time_ago();
+                                long lastTime=Long.parseLong(lastmsg_time);
+
+                                String last_message_time=getTimeAgo.getTimeAgo(lastTime,getContext());
+                                //  mtime.setText(last_message_time);
+                                holder.setTime(last_message_time);
+
+
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot Snapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot Snapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot Snapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+       /*             @Override
             protected void populateViewHolder(final chatviewholder viewHolder2, Messages model, int position) {
                // viewHolder2.setMessage(model.getMessage());
                // viewHolder2.setType(model.getType());
@@ -202,7 +323,7 @@ public class ChatFragment extends Fragment {
                     }
                 });
 
-            }
+            }*/
         };
         mchatist.setAdapter(chatrecycleradapter);
     }

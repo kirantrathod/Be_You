@@ -17,9 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,6 +62,7 @@ public class AccountSettingActivity extends AppCompatActivity {
     private TextView mname,mstatus;
     private DatabaseReference Muserref;
     private  FirebaseAuth Mauth;
+    private UploadTask uploadTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,10 +108,10 @@ public class AccountSettingActivity extends AppCompatActivity {
         });
         /////////////////////////////////////////////////
         // Load an ad into the AdMob banner view.
-        AdView adView = (AdView) findViewById(R.id.adView_accountsetting);
+      /*  AdView adView = (AdView) findViewById(R.id.adView_accountsetting);
         AdRequest adRequest = new AdRequest.Builder()
                 .setRequestAgent("android_studio:ad_template").build();
-        adView.loadAd(adRequest);
+        adView.loadAd(adRequest);*/
         ////////////////////////////////////////////////////////////
 
 
@@ -210,15 +211,90 @@ public class AccountSettingActivity extends AppCompatActivity {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 final byte[] thumb_byte = baos.toByteArray();
-                StorageReference filepath=mimagestorage.child("profile_images").child(currentuserid +".jpg");
-                final StorageReference thumbPath=mimagestorage.child("profile_images").child("thumb_image").child(currentuserid+".jpg");
 
-                filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                 final StorageReference filepath=mimagestorage.child("profile_images").child(currentuserid +".jpg");
+                final StorageReference thumbPath=mimagestorage.child("profile_images").child("thumb_image").child(currentuserid+".jpg");
+               //=---------------------------------------------
+
+                filepath.putFile(resultUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return filepath.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+                            Map map=new HashMap();
+                            map.put("image",downloadUri.toString());
+                            mUserDatabase.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        mprogress.dismiss();
+                                        Toast.makeText(AccountSettingActivity.this,"successfully Uploaded Profile Image!",Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        Toast.makeText(AccountSettingActivity.this,"failed to upload image!",Toast.LENGTH_LONG).show();
+                                        mprogress.dismiss();
+                                    }
+                                }
+                            });
+
+                        } else {
+                            Toast.makeText(AccountSettingActivity.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+//=======================for thumb image
+                thumbPath.putBytes(thumb_byte).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return thumbPath.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+                            Map map=new HashMap();
+                            map.put("thumb_image",downloadUri.toString());
+                            mUserDatabase.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        mprogress.dismiss();
+                                        Toast.makeText(AccountSettingActivity.this,"successfully Uploaded Profile Image to thumbimage!",Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        Toast.makeText(AccountSettingActivity.this,"failed to upload image to thumb!",Toast.LENGTH_LONG).show();
+                                        mprogress.dismiss();
+                                    }
+                                }
+                            });
+
+                        } else {
+                            Toast.makeText(AccountSettingActivity.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            //====================thumb image
+
+//=-------------------------------------------------------------
+           /*     filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
                             @SuppressWarnings("VisibleForTests") final
-                            String downloadurl= task.getResult().getDownloadUrl().toString();
+                             String downloadurl= task.getResult().getDownloadUrl().toString();
                             UploadTask uploadTask = thumbPath.putBytes(thumb_byte);
                             uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -257,7 +333,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                             mprogress.dismiss();
                         }
                     }
-                });
+                });*/
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
@@ -276,10 +352,10 @@ public class AccountSettingActivity extends AppCompatActivity {
             Intent addintent=new Intent(AccountSettingActivity.this,Sent_Requests.class);
             startActivity(addintent);
         }
-        if (item.getItemId()==R.id.demo){
+     /*   if (item.getItemId()==R.id.demo){
             Intent demointent=new Intent(AccountSettingActivity.this,demo.class);
             startActivity(demointent);
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

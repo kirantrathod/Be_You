@@ -101,7 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String display_name=dataSnapshot.child("name").getValue().toString();
                 String display_status=dataSnapshot.child("status").getValue().toString();
-                String display_image=dataSnapshot.child("image").getValue().toString();
+                //String display_image=dataSnapshot.child("image").getValue().toString();
                 String Thumb_image=dataSnapshot.child("thumb_image").getValue().toString();
                 mdisplayname.setText(display_name);
                 mdisplaystatus.setText(display_status);

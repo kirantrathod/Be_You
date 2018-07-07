@@ -65,15 +65,15 @@ public class BlogActivity extends AppCompatActivity {
                 startActivityForResult(gallaryIntent,GALLARY_REQUEST);
             }
         });
-        msubmitbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startPosting();
-            }
-        });
+//        msubmitbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startPosting();
+//            }
+//        });
     }
 
-    private void startPosting() {
+    /*private void startPosting() {
         final String title_val=mposttitle.getText().toString().trim();
         final String description_val=mpostdescription.getText().toString().trim();
         if (!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(description_val) && mImageuri!=null){
@@ -81,15 +81,15 @@ public class BlogActivity extends AppCompatActivity {
             mprogress.setMessage("Please wait while loading!");
             mprogress.show();
 
-            StorageReference filepath=mStorage.child("Blog_images").child(mImageuri.getLastPathSegment());
+            final StorageReference filepath=mStorage.child("Blog_images").child(mImageuri.getLastPathSegment());
 
-            filepath.putFile(mImageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+           /* filepath.putFile(mImageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                  // Uri downloadUrl= taskSnapshot.getDownloadUrl();
 
                     @SuppressWarnings("VisibleForTests")
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    Uri downloadUrl = filepath.getDownloadUrl();
 
 
                     String pushid=mDatabase.getKey();
@@ -119,11 +119,8 @@ public class BlogActivity extends AppCompatActivity {
 
 
 
-                }
-            });
 
-        }
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

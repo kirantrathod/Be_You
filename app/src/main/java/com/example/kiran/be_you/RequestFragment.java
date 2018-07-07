@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -76,14 +78,56 @@ public class RequestFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        FirebaseRecyclerOptions<Friend_req> option_request=
+                new FirebaseRecyclerOptions.Builder<Friend_req>()
+                .setQuery(db,Friend_req.class)
+                .setLifecycleOwner(this)
+                .build();
         FirebaseRecyclerAdapter<Friend_req,Friends_reqViewHolder> friend_reqrecycleradapter=new
-                FirebaseRecyclerAdapter<Friend_req, Friends_reqViewHolder>(
-                        Friend_req.class,
-                        R.layout.user_single_layout,
-                        Friends_reqViewHolder.class,
-                        db
-                ) {
-            @Override
+                FirebaseRecyclerAdapter<Friend_req, Friends_reqViewHolder>(option_request) {
+                    @NonNull
+                    @Override
+                    public Friends_reqViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_single_layout,parent,false);
+                        return new Friends_reqViewHolder(mView);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull final Friends_reqViewHolder holder, int position, @NonNull Friend_req model) {
+                        // String uid=mFriends_reqDatabase1.child("from").getRef().toString();
+                        // final String from_uid=model.getFrom();
+                        final String list_user_id1 = getRef(position).getKey();
+                        mDatabase1.child(list_user_id1).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                final String username = dataSnapshot.child("name").getValue().toString();
+                                final String userthumb_img = dataSnapshot.child("thumb_image").getValue().toString();
+                                String userstatus = dataSnapshot.child("status").getValue().toString();
+                                // String useronline=dataSnapshot.child("online").getValue().toString();
+                                holder.setName(username);
+                                holder.setStatus(userstatus);
+                                holder.setThumb_image(userthumb_img, getContext());
+
+                                holder.mview1.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent8 = new Intent(getContext(), ProfileActivity.class);
+                                        intent8.putExtra("user_id", list_user_id1);
+                                        startActivity(intent8);
+                                    }
+                                });
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+               /*     @Override
             protected void populateViewHolder(final Friends_reqViewHolder viewHolder, Friend_req model, int position) {
               // String uid=mFriends_reqDatabase1.child("from").getRef().toString();
                // final String from_uid=model.getFrom();
@@ -116,7 +160,7 @@ public class RequestFragment extends Fragment {
 
                         }
                     });
-                }
+                }*/
 
 
 

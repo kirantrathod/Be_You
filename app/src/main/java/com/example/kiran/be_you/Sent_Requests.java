@@ -2,14 +2,18 @@ package com.example.kiran.be_you;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,14 +51,54 @@ public class Sent_Requests extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseRecyclerOptions<Friend_req> option3=
+                new  FirebaseRecyclerOptions.Builder<Friend_req>()
+                .setQuery(db,Friend_req.class)
+                .setLifecycleOwner(this)
+                .build();
         FirebaseRecyclerAdapter<Friend_req,Friend_req_sentViewHolder> sentrecycleradapter=new
-                FirebaseRecyclerAdapter<Friend_req, Friend_req_sentViewHolder>(
-                        Friend_req.class,
-                        R.layout.user_single_layout,
-                        Friend_req_sentViewHolder.class,
-                        db
-                ) {
-            @Override
+                FirebaseRecyclerAdapter<Friend_req, Friend_req_sentViewHolder>(option3) {
+                    @NonNull
+                    @Override
+                    public Friend_req_sentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        return new Friend_req_sentViewHolder(LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.user_single_layout, parent, false));
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull final Friend_req_sentViewHolder holder, int position, @NonNull Friend_req model) {
+                        final String list_user_id2 = getRef(position).getKey();
+                        muserref.child(list_user_id2).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                final String username = dataSnapshot.child("name").getValue().toString();
+                                final String userthumb_img = dataSnapshot.child("thumb_image").getValue().toString();
+                                String userstatus = dataSnapshot.child("status").getValue().toString();
+                                // String useronline=dataSnapshot.child("online").getValue().toString();
+                                holder.setName(username);
+                                holder.setStatus(userstatus);
+                                holder.setThumb_image(userthumb_img, getApplicationContext());
+
+                                holder.mview3.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent8 = new Intent(getApplicationContext(), ProfileActivity.class);
+                                        intent8.putExtra("user_id", list_user_id2);
+                                        startActivity(intent8);
+                                    }
+                                });
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+             /*       @Override
             protected void populateViewHolder(final Friend_req_sentViewHolder viewHolder, Friend_req model, int position) {
                 final String list_user_id2 = getRef(position).getKey();
                 muserref.child(list_user_id2).addValueEventListener(new ValueEventListener() {
@@ -85,7 +129,7 @@ public class Sent_Requests extends AppCompatActivity {
 
                     }
                 });
-            }
+            }*/
         };
         msent_requestlist.setAdapter(sentrecycleradapter);
     }

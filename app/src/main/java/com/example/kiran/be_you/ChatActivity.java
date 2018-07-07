@@ -84,17 +84,20 @@ public class ChatActivity extends AppCompatActivity {
         mCurrentuserid=mAuth.getCurrentUser().getUid();
 
         mchatuser=getIntent().getStringExtra("user_id");
-        String user_name=getIntent().getStringExtra("user_name");
-        String user_status=getIntent().getStringExtra("user_status");
-        String user_profile=getIntent().getStringExtra("user_profileimage");
-
-
+        final String user_name=getIntent().getStringExtra("user_name");
+        final String user_status=getIntent().getStringExtra("user_status");
+        final String user_profile=getIntent().getStringExtra("user_profileimage");
+        final String gender=getIntent().getStringExtra("gender");
 //===================toolbar onclicklistner============================
         mchattoolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChatActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(ChatActivity.this, ChatUserProfile.class);
                 intent.putExtra("user_id",mchatuser);
+                intent.putExtra("user_name",user_name);
+                intent.putExtra("user_status",user_status);
+                intent.putExtra("user_profileimage",user_profile);
+                intent.putExtra("gender",gender);
                 startActivity(intent);
                 finish();
             }

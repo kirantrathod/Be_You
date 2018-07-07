@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/displayimage"
-        android:id="@+id/card9"
+        android:id="@+id/cardchatuser"
         android:layout_marginTop="5dp">
 <RelativeLayout
     android:layout_width="match_parent"
@@ -62,7 +62,7 @@
         android:id="@+id/sendfriendrequestbtn"
         android:layout_width="300dp"
         android:layout_height="45dp"
-        android:layout_below="@+id/card9"
+        android:layout_below="@+id/cardchatuser"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

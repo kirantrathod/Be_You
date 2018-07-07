@@ -127,13 +127,6 @@
         android:paddingRight="80dp"
         android:textColor="@android:color/white"
         android:text="@string/change_image" />
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView_accountsetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/accountsettingactivity_adid" />
+
 
 </RelativeLayout>
