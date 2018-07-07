@@ -2,14 +2,18 @@ package com.example.kiran.be_you;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,6 +33,7 @@ public class UsersActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference muserref;
     private FirebaseAuth auth;
+    private FirebaseRecyclerAdapter<Users,UserViewHolder> firebaseRecyclerAdapter;
    // private FirebaseUser mcurrentuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +60,31 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Users,UserViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Users, UserViewHolder>(
-                Users.class,
-                R.layout.user_single_layout,
-                UserViewHolder.class,
-                mDatabase
+        FirebaseRecyclerOptions<Users> options=
+                new FirebaseRecyclerOptions.Builder<Users>()
+                .setQuery(mDatabase,Users.class)
+                .setLifecycleOwner(this)
+                .build();
 
-        ) {
+        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Users, UserViewHolder>(options) {
+
+            @NonNull
             @Override
-            protected void populateViewHolder(final UserViewHolder viewHolder, Users model, int position) {
-                viewHolder.setName(model.getName());
-                viewHolder.setStatus(model.getStatus());
-                viewHolder.setThumb_image(model.getThumb_image(),getApplicationContext());
+            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return new UserViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.user_single_layout, parent, false));
+
+            }
+
+
+
+            @Override
+            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull Users model) {
+                holder.setName(model.getName());
+                holder.setStatus(model.getStatus());
+                holder.setThumb_image(model.getThumb_image(),getApplicationContext());
                 final String user_id=getRef(position).getKey();
-                viewHolder.mview.setOnClickListener(new View.OnClickListener() {
+                holder.mview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent9=new Intent(UsersActivity.this,ProfileActivity.class);
@@ -76,13 +92,8 @@ public class UsersActivity extends AppCompatActivity {
                         startActivity(intent9);
                     }
                 });
-
             }
-
-            @Override
-            public void onBindViewHolder(UserViewHolder viewHolder, int position) {
-                super.onBindViewHolder(viewHolder, position);
-            }};
+        };
         muserlist.setAdapter(firebaseRecyclerAdapter);
     }
 

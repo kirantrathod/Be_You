@@ -2,15 +2,19 @@ package com.example.kiran.be_you;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +26,7 @@ public class AfterBlogActivity extends AppCompatActivity {
     private RecyclerView mpostlist;
     private DatabaseReference mDatabase;
     private LinearLayoutManager mlinearlayout;
+    private FirebaseRecyclerAdapter<post,BlogViewHolder> firebaseRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,19 +50,32 @@ public class AfterBlogActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<post,BlogViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<post, BlogViewHolder>(
-                post.class,
-                R.layout.post_row,
-                BlogViewHolder.class,
-                mDatabase
+        FirebaseRecyclerOptions<post> optionpost=
+                new FirebaseRecyclerOptions.Builder<post>()
+                .setQuery(mDatabase,post.class)
+                .setLifecycleOwner(this)
+                .build();
+         firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<post, BlogViewHolder>(optionpost) {
+             @NonNull
+             @Override
+             public BlogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                 return new BlogViewHolder(LayoutInflater.from(parent.getContext())
+                         .inflate(R.layout.post_row, parent, false));
+             }
 
-        ) {
-            @Override
+             @Override
+             protected void onBindViewHolder(@NonNull BlogViewHolder holder, int position, @NonNull post model) {
+                 holder.setTitle(model.getTitle());
+                 holder.setDesc(model.getDesc());
+                 holder.setblog_image(getApplicationContext(),model.getBlog_image());
+             }
+
+            /* @Override
             protected void populateViewHolder(BlogViewHolder viewHolder, post model, int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDesc());
                 viewHolder.setblog_image(getApplicationContext(),model.getBlog_image());
-            }
+            }*/
         };
         mpostlist.setAdapter(firebaseRecyclerAdapter);
     }

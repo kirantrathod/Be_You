@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatUserProfile">
+    <ImageView
+        android:id="@+id/displayimageuser"
+        android:layout_width="250dp"
+        android:layout_height="240dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/app_name" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/displayimageuser"
+        android:id="@+id/cardchatuser"
+        android:layout_marginTop="5dp"
+        android:padding="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp">
+            <TextView
+                android:id="@+id/chatuser_displayname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="@string/display_name"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/chatuserstatus"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/chatuser_displayname"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="@string/status"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
