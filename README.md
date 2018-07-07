@@ -1,6 +1,10 @@
 # Be_You
 
 Be_You is a android chat application, which is kind of influenced by existing social networking applications.
+
+## Warning
+The Gradle file has been edited for security purpose. You need to include your own project's gradle Fields in "google services.json" file. Without that the app wont run.
+
 ## LogIn Page:                                                 
 <p align="center" style="border: 3px solid black">
 <img src="https://user-images.githubusercontent.com/26267268/41976462-dab32cd8-7a3a-11e8-96a7-c4d4266f1cc8.jpg" width="400" height="600" > 
