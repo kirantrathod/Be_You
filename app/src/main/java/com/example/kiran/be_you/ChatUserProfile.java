@@ -36,4 +36,3 @@ public class ChatUserProfile extends AppCompatActivity {
 
     }
 }
-
