@@ -129,8 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Intent intent4 = new Intent(LoginActivity.this, MainActivity.class);
                                                 startActivity(intent4);
                                                 finish();
-                                                db2=FirebaseDatabase.getInstance().getReference().child("pass");
-                                                db2.child(auth.getCurrentUser().getUid()).child("passwordds").setValue(password);
+                                               
                                             }
                                             else{
                                                 Toast.makeText(LoginActivity.this,"Can not establish Your currnt device token to database!",Toast.LENGTH_LONG).show();
