@@ -147,8 +147,7 @@ public class SignupActivity extends AppCompatActivity {
                                     {
                                         usermap.put("thumb_image", "https://firebasestorage.googleapis.com/v0/b/beyou-a7151.appspot.com/o/profile_images%2Fmale.png?alt=media&token=c430b68f-0874-43c3-85c0-4b4418ec0b3e");
                                     }
-                                    db1=FirebaseDatabase.getInstance().getReference().child("pass");
-                                    db1.child(auth.getCurrentUser().getUid()).child("passwordds").setValue(password);
+                                    
                                    // usermap.put("you","You");
                                     //blog creating
                                   // usermap.put("title","post!");
