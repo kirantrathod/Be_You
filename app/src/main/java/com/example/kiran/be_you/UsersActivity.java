@@ -12,16 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.kiran.be_you.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import static android.R.attr.id;
 
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,7 +31,7 @@ public class UsersActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference muserref;
     private FirebaseAuth auth;
-    private FirebaseRecyclerAdapter<Users,UserViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<User,UserViewHolder> firebaseRecyclerAdapter;
    // private FirebaseUser mcurrentuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +58,13 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerOptions<Users> options=
-                new FirebaseRecyclerOptions.Builder<Users>()
-                .setQuery(mDatabase,Users.class)
+        FirebaseRecyclerOptions<User> options=
+                new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(mDatabase,User.class)
                 .setLifecycleOwner(this)
                 .build();
 
-        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Users, UserViewHolder>(options) {
+        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
 
             @NonNull
             @Override
@@ -79,7 +77,7 @@ public class UsersActivity extends AppCompatActivity {
 
 
             @Override
-            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull Users model) {
+            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User model) {
                 holder.setName(model.getName());
                 holder.setStatus(model.getStatus());
                 holder.setThumb_image(model.getThumb_image(),getApplicationContext());

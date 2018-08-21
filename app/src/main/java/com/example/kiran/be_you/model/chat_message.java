@@ -1,8 +1,4 @@
-package com.example.kiran.be_you;
-
-/**
- * Created by Kiran on 8/21/2017.
- */
+package com.example.kiran.be_you.model;
 
 public class chat_message  {
     Boolean seen ;
