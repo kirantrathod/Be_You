@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.kiran.be_you.model.Post;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,7 @@ public class AfterBlogActivity extends AppCompatActivity {
     private RecyclerView mpostlist;
     private DatabaseReference mDatabase;
     private LinearLayoutManager mlinearlayout;
-    private FirebaseRecyclerAdapter<post,BlogViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<Post,BlogViewHolder> firebaseRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +51,12 @@ public class AfterBlogActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseRecyclerOptions<post> optionpost=
-                new FirebaseRecyclerOptions.Builder<post>()
-                .setQuery(mDatabase,post.class)
+        FirebaseRecyclerOptions<Post> optionpost=
+                new FirebaseRecyclerOptions.Builder<Post>()
+                .setQuery(mDatabase,Post.class)
                 .setLifecycleOwner(this)
                 .build();
-         firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<post, BlogViewHolder>(optionpost) {
+         firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Post, BlogViewHolder>(optionpost) {
              @NonNull
              @Override
              public BlogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,14 +65,14 @@ public class AfterBlogActivity extends AppCompatActivity {
              }
 
              @Override
-             protected void onBindViewHolder(@NonNull BlogViewHolder holder, int position, @NonNull post model) {
+             protected void onBindViewHolder(@NonNull BlogViewHolder holder, int position, @NonNull Post model) {
                  holder.setTitle(model.getTitle());
                  holder.setDesc(model.getDesc());
                  holder.setblog_image(getApplicationContext(),model.getBlog_image());
              }
 
             /* @Override
-            protected void populateViewHolder(BlogViewHolder viewHolder, post model, int position) {
+            protected void populateViewHolder(BlogViewHolder viewHolder, Post model, int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDesc());
                 viewHolder.setblog_image(getApplicationContext(),model.getBlog_image());

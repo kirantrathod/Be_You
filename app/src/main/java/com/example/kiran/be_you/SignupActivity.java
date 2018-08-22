@@ -150,8 +150,8 @@ public class SignupActivity extends AppCompatActivity {
                                     
                                    // usermap.put("you","You");
                                     //blog creating
-                                  // usermap.put("title","post!");
-                                   // usermap.put("desc","Hey its post");
+                                  // usermap.put("title","Post!");
+                                   // usermap.put("desc","Hey its Post");
                                     //usermap.put("blog_image","https://firebasestorage.googleapis.com/v0/b/beyou-a7151.appspot.com/o/profile_images%2FZbqQPAbUPIeAKPkMEXaIA8WU7rn2.jpg?alt=media&token=1bcc9ef7-519c-4707-8341-b7fec546d159");
                                     mDatabase.setValue(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
