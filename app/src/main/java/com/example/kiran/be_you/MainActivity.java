@@ -109,18 +109,17 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPageAdapter);
         viewPager.setCurrentItem(1);
 
+      
         // Create new fragment and transaction
-        ChatFragment newFragment = new ChatFragment();
-   
+        ChatFragment newFragment = new ChatFragment();   
         Bundle args = new Bundle();
         args.putString("currentuser",mcurretuser.getUid());
         newFragment.setArguments(args);
-      // Replace whatever is in the fragment's container2 view with this fragment with argument as current user id,
+        // Replace whatever is in the fragment's container2 view with this fragment with argument as current user id,
         // and add the transaction to the back stack if needed
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container2, newFragment);
         transaction.addToBackStack(null);
-
         // Commit the transaction
         transaction.commit();
 
