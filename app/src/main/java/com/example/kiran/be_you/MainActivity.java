@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                 } else {
-                    mUserOnlineRef = FirebaseDatabase.getInstance().getReference("users/" + mCurrentUser.getUid());
+                    mUserOnlineRef = FirebaseDatabase.getInstance().getReference("users/" + mCurrentUser.getUid() + "/online");
                     mUserOnlineRef.setValue("true");
                     setupViewPager();
                 }
@@ -68,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(sectionsPageAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+        /*
+         * ChatFragment is my default fragment. Which should open first when I open my application.
+         * That's why I'm creating instance of ChatFragment changing ChatFragments container with
+         * currentUid, so that when user changes frangments then he/she can get current user easily.
+         */
         ChatFragment newFragment = new ChatFragment();
         Bundle args = new Bundle();
-        args.putString("currentuser", mCurrentUser.getUid());
+        args.putString("currentuid", mCurrentUser.getUid());
         newFragment.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container2, newFragment);
