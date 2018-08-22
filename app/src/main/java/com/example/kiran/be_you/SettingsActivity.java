@@ -198,7 +198,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void uploadThumbImage(Uri resultUri) {
-
         final StorageReference thumbPath = mImageStorage.child("thumb_image/" + mCurrentUid + ".jpg");
 
         // compress image to thumbnail

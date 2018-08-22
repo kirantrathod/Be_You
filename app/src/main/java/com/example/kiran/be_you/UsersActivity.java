@@ -13,107 +13,135 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.kiran.be_you.model.User;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-
 public class UsersActivity extends AppCompatActivity {
-    private RecyclerView muserlist;
+    private static final String TAG = "UsersActivity";
+
+    @BindView(R.id.users_recyclerview) RecyclerView mUsersRecyclerView;
+
+    private String mCurrentUid;
+    UserAdapter mAdapter;
     private DatabaseReference mDatabase;
-    private DatabaseReference muserref;
-    private FirebaseAuth auth;
-    private FirebaseRecyclerAdapter<User,UserViewHolder> firebaseRecyclerAdapter;
-   // private FirebaseUser mcurrentuser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-        muserlist=(RecyclerView) findViewById(R.id.alluserrecyclerview);
-        muserlist.setHasFixedSize(true);
-        muserlist.setLayoutManager(new LinearLayoutManager(this));
-        mDatabase= FirebaseDatabase.getInstance().getReference().child("users");
+        ButterKnife.bind(this);
 
-        //--------------------------offline capablities---------------------------
+        mUsersRecyclerView.setHasFixedSize(true);
+        mUsersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mCurrentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase.keepSynced(true);  // offline capabilities
+        mDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + "/online").setValue("true");
 
-        mDatabase.keepSynced(true);
-
-        //-----------------------------------online status--------------------------
-        auth=FirebaseAuth.getInstance();
-        muserref= FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
-        muserref.child("online").setValue("true");
-
-
+        setRecyclerView();
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseRecyclerOptions<User> options=
-                new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(mDatabase,User.class)
-                .setLifecycleOwner(this)
-                .build();
-
-        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
-
-            @NonNull
+    private void setRecyclerView() {
+        mUsersRecyclerView.setHasFixedSize(true);
+        mUsersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new UserAdapter();
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
-            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new UserViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.user_single_layout, parent, false));
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> list = dataSnapshot.getChildren();
 
-            }
-
-
-
-            @Override
-            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User model) {
-                holder.setName(model.getName());
-                holder.setStatus(model.getStatus());
-                holder.setThumb_image(model.getThumb_image(),getApplicationContext());
-                final String user_id=getRef(position).getKey();
-                holder.mview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent9=new Intent(UsersActivity.this,ProfileActivity.class);
-                        intent9.putExtra("user_id",user_id);
-                        startActivity(intent9);
+                // Filter current user
+                List<User> userList = new ArrayList<>();
+                for (DataSnapshot user : list) {
+                    if (!user.getKey().equals(mCurrentUid)) {
+                        userList.add(user.getValue(User.class));
                     }
-                });
+                }
+                // Setting data
+                mAdapter.setItems(userList);
+                mAdapter.notifyDataSetChanged();
             }
-        };
-        muserlist.setAdapter(firebaseRecyclerAdapter);
+
+            @Override public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+        mUsersRecyclerView.setAdapter(mAdapter);
     }
 
-    public static class UserViewHolder extends RecyclerView.ViewHolder{
-        View mview;
+    private class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
+
+        private List<User> userList = new ArrayList<>();
+
+        @NonNull
+        @Override
+        public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new UserViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.user_item_layout, parent, false));
+        }
+
+        public void setItems(List<User> userList) {
+            this.userList = userList;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+            User user = userList.get(position);
+            holder.bind(user);
+
+            // TODO: move this to holder.bind() method
+            holder.setThumb_image(user.getThumb_image(),getApplicationContext());
+        }
+
+        @Override
+        public int getItemCount() {
+            return userList.size();
+        }
+    }
+
+    private class UserViewHolder extends RecyclerView.ViewHolder {
+
+        View mView;
+
         public UserViewHolder(View itemView) {
             super(itemView);
-            mview=itemView;
-        }
-        public void setName(String name){
-            TextView usernameview=(TextView ) mview.findViewById(R.id.singledisplayname);
-            usernameview.setText(name);
-        }
-        public void setStatus(String status){
-            TextView statusview=(TextView) mview.findViewById(R.id.singlestatus);
-            statusview.setText(status);
+            mView = itemView;
         }
 
-        public void setThumb_image(String thumb_image,Context ctx){
-            CircleImageView circleImageView2=(CircleImageView)mview.findViewById(R.id.singleprofile_image);
-            Picasso.with(ctx).load(thumb_image).placeholder(R.mipmap.icon).into(circleImageView2);
+        public void bind(User user) {
+            TextView nameView = mView.findViewById(R.id.item_name);
+            nameView.setText(user.getName());
+
+            TextView statusView = mView.findViewById(R.id.item_status);
+            statusView.setText(user.getStatus());
+
+
+            final String uid = user.getUid();
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+                    intent.putExtra("user_id", uid);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        public void setThumb_image(String thumb_image, Context ctx) {
+            CircleImageView imageView = mView.findViewById(R.id.item_image);
+            Picasso.with(ctx).load(thumb_image).placeholder(R.mipmap.icon).into(imageView);
         }
     }
-
 }

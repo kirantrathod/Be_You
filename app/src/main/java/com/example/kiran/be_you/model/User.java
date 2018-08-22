@@ -1,12 +1,13 @@
 package com.example.kiran.be_you.model;
 
 public class User {
-    public String name, image, status, thumb_image, you;
+    public String name, uid, image, status, thumb_image, you;
 
     public User() {} // Required empty public constructor
 
-    public User(String name, String image, String status, String thumb_image) {
+    public User(String name, String uid, String image, String status, String thumb_image) {
         this.name = name;
+        this.uid = uid;
         this.image = image;
         this.status = status;
         this.thumb_image = thumb_image;
@@ -18,6 +19,10 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getImage() {

@@ -84,7 +84,7 @@ public class FriendsFragment extends Fragment {
                     @NonNull
                     @Override
                     public FriendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_single_layout,parent,false);
+                        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item_layout,parent,false);
                         return new FriendsViewHolder(mView);
                     }
 
@@ -187,21 +187,21 @@ public class FriendsFragment extends Fragment {
         }
         public  void setDate(String date)
         {
-            TextView datefrom=(TextView) mView.findViewById(R.id.singledate);
+            TextView datefrom=(TextView) mView.findViewById(R.id.item_date);
             datefrom.setText(date);
 
         }
         public void setName(String name){
-            TextView usernameview=(TextView) mView.findViewById(R.id.singledisplayname);
+            TextView usernameview=(TextView) mView.findViewById(R.id.item_name);
             usernameview.setText(name);
         }
         public void setStatus(String status){
-            TextView userstatus=(TextView) mView.findViewById(R.id.singlestatus);
+            TextView userstatus=(TextView) mView.findViewById(R.id.item_status);
             userstatus.setText(status);
         }
 
       public void setImage(String image,Context ctx){
-            CircleImageView circleImageView2=(CircleImageView)mView.findViewById(R.id.singleprofile_image);
+            CircleImageView circleImageView2=(CircleImageView)mView.findViewById(R.id.item_image);
             Picasso.with(ctx).load(image).placeholder(R.mipmap.icon).into(circleImageView2);
         }
         public  void setUserOnline(String online_status){

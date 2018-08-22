@@ -62,7 +62,7 @@ public class Sent_Requests extends AppCompatActivity {
                     @Override
                     public Friend_req_sentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         return new Friend_req_sentViewHolder(LayoutInflater.from(parent.getContext())
-                                .inflate(R.layout.user_single_layout, parent, false));
+                                .inflate(R.layout.user_item_layout, parent, false));
                     }
 
                     @Override
@@ -140,16 +140,16 @@ public class Sent_Requests extends AppCompatActivity {
             mview3=itemView;
         }
         public void setName(String name){
-            TextView usernameview=(TextView) mview3.findViewById(R.id.singledisplayname);
+            TextView usernameview=(TextView) mview3.findViewById(R.id.item_name);
             usernameview.setText(name);
         }
         public void setStatus(String status){
-            TextView userstatus=(TextView) mview3.findViewById(R.id.singlestatus);
+            TextView userstatus=(TextView) mview3.findViewById(R.id.item_status);
             userstatus.setText(status);
         }
 
         public void setThumb_image(String thumb_image,Context ctx){
-            CircleImageView circleImageView2=(CircleImageView)mview3.findViewById(R.id.singleprofile_image);
+            CircleImageView circleImageView2=(CircleImageView)mview3.findViewById(R.id.item_image);
             Picasso.with(ctx).load(thumb_image).placeholder(R.mipmap.icon).into(circleImageView2);
         }
     }

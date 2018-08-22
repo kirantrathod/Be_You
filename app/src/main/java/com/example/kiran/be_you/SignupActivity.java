@@ -135,6 +135,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                     HashMap<String, String> usermap = new HashMap<>();
                                     usermap.put("name", displayname);
+                                    usermap.put("uid", uid);
                                     usermap.put("status", "Hey,There I am using Be_You!");
                                     usermap.put("device_token",DeviceToken);
                                     usermap.put("image", "https://firebasestorage.googleapis.com/v0/b/beyou-a7151.appspot.com/o/profile_images%2FkTZxthCkQebTzdM7o5KC0miNxPw2.jpg?alt=media&token=8ba6019e-9f12-4714-bb4f-015e4b963b23");
