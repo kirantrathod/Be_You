@@ -29,7 +29,6 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
-    <string name="display_names">Display Names</string>
     <string name="hey_there_i_am_using_be_you">Hey There I am using Be_You!</string>
     <string name="change_status">Change Status</string>
     <string name="change_image">Change Image</string>

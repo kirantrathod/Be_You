@@ -11,25 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.kiran.be_you.model.Message;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,7 +37,7 @@ public class ChatFragment extends Fragment {
     private DatabaseReference mDatabase2,muserref2;
     private FirebaseAuth mAuth2;
     private TextView mtime;
-    private FirebaseRecyclerAdapter<Messages,chatviewholder> chatrecycleradapter;
+    private FirebaseRecyclerAdapter<Message,chatviewholder> chatrecycleradapter;
     private String mcurrent_userid2;
     private View mMainview2;
    // private Query db2;
@@ -88,13 +82,13 @@ public class ChatFragment extends Fragment {
         super.onStart();
         muserref2= FirebaseDatabase.getInstance().getReference().child("users").child(mAuth2.getCurrentUser().getUid());
         muserref2.child("online").setValue("true");
-        FirebaseRecyclerOptions<Messages> options2=
-                new FirebaseRecyclerOptions.Builder<Messages>()
-                .setQuery(mchatDatabase,Messages.class)
+        FirebaseRecyclerOptions<Message> options2=
+                new FirebaseRecyclerOptions.Builder<Message>()
+                .setQuery(mchatDatabase,Message.class)
                 .setLifecycleOwner(this)
                 .build();
                 chatrecycleradapter=new
-                            FirebaseRecyclerAdapter<Messages, chatviewholder>(options2) {
+                            FirebaseRecyclerAdapter<Message, chatviewholder>(options2) {
                     @NonNull
                     @Override
                     public chatviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -103,7 +97,7 @@ public class ChatFragment extends Fragment {
                     }
 
                     @Override
-                    protected void onBindViewHolder(@NonNull final chatviewholder holder, int position, @NonNull Messages model) {
+                    protected void onBindViewHolder(@NonNull final chatviewholder holder, int position, @NonNull Message model) {
                         // viewHolder2.setMessage(model.getMessage());
                         // viewHolder2.setType(model.getType());
                         final String list_user_id1 = getRef(position).getKey();
@@ -182,7 +176,7 @@ public class ChatFragment extends Fragment {
                                 String lastmsg_time=Snapshot.child("time").getValue().toString();
                                 //String image=dataSnapshot.child("image").getValue().toString();
 
-                                Get_Time_ago getTimeAgo=new Get_Time_ago();
+                                GetTimeAgo getTimeAgo=new GetTimeAgo();
                                 long lastTime=Long.parseLong(lastmsg_time);
 
                                 String last_message_time=getTimeAgo.getTimeAgo(lastTime,getContext());
@@ -215,7 +209,7 @@ public class ChatFragment extends Fragment {
                     }
 
        /*             @Override
-            protected void populateViewHolder(final chatviewholder viewHolder2, Messages model, int position) {
+            protected void populateViewHolder(final chatviewholder viewHolder2, Message model, int position) {
                // viewHolder2.setMessage(model.getMessage());
                // viewHolder2.setType(model.getType());
                 final String list_user_id1 = getRef(position).getKey();
@@ -292,7 +286,7 @@ public class ChatFragment extends Fragment {
                         String lastmsg_time=Snapshot.child("time").getValue().toString();
                         //String image=dataSnapshot.child("image").getValue().toString();
 
-                            Get_Time_ago getTimeAgo=new Get_Time_ago();
+                            GetTimeAgo getTimeAgo=new GetTimeAgo();
                             long lastTime=Long.parseLong(lastmsg_time);
 
                             String last_message_time=getTimeAgo.getTimeAgo(lastTime,getContext());

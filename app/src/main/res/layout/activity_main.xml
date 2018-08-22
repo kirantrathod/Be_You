@@ -6,39 +6,33 @@
     android:layout_height="match_parent"
     tools:context="com.example.kiran.be_you.MainActivity">
 
-<android.support.design.widget.AppBarLayout
-    android:layout_width="match_parent"
-    android:id="@+id/appbarlayout"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-
-android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    tools:ignore="RtlHardcoded">
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/main_tab"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabBackground="@color/colorPrimary"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabSelectedTextColor="@android:color/white">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="RtlHardcoded">
 
-    </android.support.design.widget.TabLayout>
-
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@color/colorPrimary"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white">
+        </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
-
     <android.support.v4.view.ViewPager
-        android:id="@+id/mainviewpager"
+        android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appbarlayout"
+        android:layout_below="@+id/appbar_layout"
         android:alwaysDrawnWithCache="false"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
     </android.support.v4.view.ViewPager>
-
 
 </RelativeLayout>

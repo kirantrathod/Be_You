@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class change_displayname extends AppCompatActivity {
+public class ChangeNameActivity extends AppCompatActivity {
     private Button msavechanges;
     private EditText mdiplayname;
     //firebase
@@ -41,7 +41,7 @@ public class change_displayname extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //progressbar
-                mprogress=new ProgressDialog(change_displayname.this);
+                mprogress=new ProgressDialog(ChangeNameActivity.this);
                 mprogress.setTitle("Saving Changes!");
                 mprogress.setMessage("Please wait while loading.");
                 mprogress.setCanceledOnTouchOutside(false);
@@ -53,7 +53,7 @@ public class change_displayname extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             mprogress.dismiss();
-                            Intent reverseintent=new Intent(change_displayname.this,AccountSettingActivity.class);
+                            Intent reverseintent=new Intent(ChangeNameActivity.this,SettingsActivity.class);
                             startActivity(reverseintent);
 
                         }else{

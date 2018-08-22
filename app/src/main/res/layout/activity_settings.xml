@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
-    tools:context="com.example.kiran.be_you.AccountSettingActivity">
+    tools:context="com.example.kiran.be_you.SettingsActivity">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/settingcircleimage"
+        android:id="@+id/settings_image"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
@@ -20,13 +20,14 @@
         android:src="@mipmap/icon"
         app:civ_border_color="@color/bg_main"
         app:civ_border_overlay="true" />
+
     <android.support.v7.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/settingcircleimage"
+        android:layout_below="@+id/settings_image"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp">
@@ -36,22 +37,22 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/settings_displaynames"
+                android:id="@+id/settings_name"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"
-                android:layout_toLeftOf="@+id/changedisplayname_btn2"
-                android:layout_toStartOf="@+id/changedisplayname_btn2"
+                android:layout_toLeftOf="@+id/change_name_btn"
+                android:layout_toStartOf="@+id/change_name_btn"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@string/display_names"
+                android:text="@string/display_name"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="22sp" />
 
             <ImageButton
-                android:id="@+id/changedisplayname_btn2"
+                android:id="@+id/change_name_btn"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
@@ -81,13 +82,13 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/setting_status"
+                android:id="@+id/settings_status"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"
-                android:layout_toLeftOf="@+id/changestatusbtn2"
-                android:layout_toStartOf="@+id/changestatusbtn2"
+                android:layout_toLeftOf="@+id/change_status_btn"
+                android:layout_toStartOf="@+id/change_status_btn"
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="false"
@@ -98,7 +99,7 @@
                 tools:ignore="Deprecated" />
 
             <ImageButton
-                android:id="@+id/changestatusbtn2"
+                android:id="@+id/change_status_btn"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
@@ -113,20 +114,4 @@
                 android:src="@mipmap/create" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
-
-    <Button
-        android:id="@+id/setting_changeimage_btn"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/cardview2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/mybutton"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
-        android:textColor="@android:color/white"
-        android:text="@string/change_image" />
-
-
 </RelativeLayout>

@@ -77,8 +77,8 @@ public class ProfileActivity extends AppCompatActivity {
         //Friendrequest Database
         mFriendreqDatabase=FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mFriendreqDatabase.keepSynced(true);
-        //Friends Database
-        mFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("Friends");
+        //Friend Database
+        mFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("Friend");
         mFriendsDatabase.keepSynced(true);
         //Notification Database
         mnotificationDatabase=FirebaseDatabase.getInstance().getReference().child("notifications");
@@ -120,11 +120,11 @@ public class ProfileActivity extends AppCompatActivity {
                     msendbtn.setVisibility(View.INVISIBLE);
                     mdecline_btn.setVisibility(View.INVISIBLE);
                     mprogress.dismiss();
-                   // Intent intentpro=new Intent(ProfileActivity.this,AccountSettingActivity.class);
+                   // Intent intentpro=new Intent(ProfileActivity.this,SettingsActivity.class);
                    // startActivity(intentpro);
                 }
 
-                //--------Friends List/Accept request------------------
+                //--------Friend List/Accept request------------------
                 mFriendreqDatabase.child(mcurrentuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -187,7 +187,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 msendbtn.setEnabled(false);
 
-                //------------------Not Friends state---------------------------------------------------
+                //------------------Not Friend state---------------------------------------------------
                 if(mcurrent_state.equals("not_friends")){
                     mprogress2.setTitle("Sending Request..");
                     mprogress2.setMessage("Please wait,it takes less time to send");

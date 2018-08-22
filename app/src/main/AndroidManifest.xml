@@ -45,7 +45,7 @@
             android:name=".LoginActivity"
             android:label="Log In" />
         <activity
-            android:name=".AccountSettingActivity"
+            android:name=".SettingsActivity"
             android:label="Account Setting"
             android:parentActivityName=".MainActivity" />
         <activity
@@ -55,7 +55,7 @@
         <activity
             android:name=".ChangeStatusActivity"
             android:label="Change Status"
-            android:parentActivityName=".AccountSettingActivity" />
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".AfterBlogActivity"
             android:label="Timeline"
@@ -89,16 +89,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".change_displayname"
+            android:name=".ChangeNameActivity"
             android:label="Change Name"
-            android:parentActivityName=".AccountSettingActivity" />
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".Sent_Requests"
             android:label="Sent Friend Requests"
-            android:parentActivityName=".AccountSettingActivity" />
+            android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".finale"
-            android:parentActivityName=".AccountSettingActivity" />
+            android:parentActivityName=".SettingsActivity" />
         <!-- This meta-data tag is required to use Google Play Services. -->
 
 

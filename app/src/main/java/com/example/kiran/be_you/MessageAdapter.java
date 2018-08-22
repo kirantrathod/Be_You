@@ -6,22 +6,20 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.kiran.be_you.Messages;
-import com.example.kiran.be_you.R;
+import com.example.kiran.be_you.model.Message;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private List<Messages> mMessageList;
+    private List<Message> mMessageList;
     private FirebaseAuth fAuth;
 
-    public MessageAdapter(List<Messages> mMessageList){
+    public MessageAdapter(List<Message> mMessageList){
 
         this.mMessageList = mMessageList;
 
@@ -49,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             messageTextIn = (TextView) view.findViewById(R.id.message_text_in);
             messageTextOut = (TextView) view.findViewById(R.id.message_text_out);
-           //messageCard = (CardView) view.findViewById(R.id.message_card);
+           //messageCard = (CardView) view.SettingsActivity(R.id.message_card);
             messageIn = (LinearLayout) view.findViewById(R.id.message_layout_in);
             messageOut = (LinearLayout) view.findViewById(R.id.message_layout_out);
             mainMessageLayout = (LinearLayout) view.findViewById(R.id.main_message_layout);
@@ -65,7 +63,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         String current_user_id = fAuth.getCurrentUser().getUid();
 
-        Messages c = mMessageList.get(position);
+        Message c = mMessageList.get(position);
         String from_user = c.getFrom();
         String message_type=c.getType();
 
