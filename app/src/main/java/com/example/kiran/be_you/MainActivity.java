@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -109,22 +110,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, UsersActivity.class));
                 break;
             case R.id.menu_signout:
-                new AlertDialog.Builder(this)
-                        .setMessage("Are you sure you want to sign out?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int id) {
-                                FirebaseAuth.getInstance().signOut();
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-                mUserOnlineRef.setValue(ServerValue.TIMESTAMP);
+                signout();
                 break;
+            default:
+                return false;
         }
         return true;
+    }
+
+    private void signout() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to sign out?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int id) {
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialog.dismiss();
+                }
+                return true;
+            }
+        });
+        mUserOnlineRef.setValue(ServerValue.TIMESTAMP);
     }
 
     @Override

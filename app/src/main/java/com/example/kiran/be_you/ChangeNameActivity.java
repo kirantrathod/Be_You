@@ -17,12 +17,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.ButterKnife;
+
 public class ChangeNameActivity extends AppCompatActivity {
     private Button msavechanges;
     private EditText mdiplayname;
     //firebase
     private DatabaseReference mDatabasereference;
-    private FirebaseUser mcurrentuser;
 
     //progressbar
     private ProgressDialog mprogress;
@@ -30,10 +31,10 @@ public class ChangeNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_displayname);
-        //firebase
-        mcurrentuser= FirebaseAuth.getInstance().getCurrentUser();
-        String currentuid=mcurrentuser.getUid();
-        mDatabasereference= FirebaseDatabase.getInstance().getReference().child("users").child(currentuid);
+        ButterKnife.bind(this);
+
+        mDatabasereference= FirebaseDatabase.getInstance()
+                .getReference("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         msavechanges=(Button) findViewById(R.id.savechangbtn1);
         mdiplayname=(EditText)findViewById(R.id.changedisplayname_plaintext);
@@ -59,13 +60,9 @@ public class ChangeNameActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(getApplicationContext(),"There was some error in saving changes",Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
-
             }
         });
-
-
     }
 }

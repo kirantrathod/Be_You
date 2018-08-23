@@ -1,6 +1,5 @@
 package com.example.kiran.be_you;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import com.example.kiran.be_you.model.Friend;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,62 +25,60 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FriendsFragment extends Fragment {
-    private RecyclerView mFriendlist;
-    private DatabaseReference mFriendsDatabase;
-    private DatabaseReference mDatabase2;
-    private FirebaseAuth mAuth;
-    private String mcurrent_userid;
-    private View mMainview;
+    private static final String TAG = "FriendsFragment";
 
-    public FriendsFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.friends_recycler_view) RecyclerView mFriendsRecyclerView;
 
+    private DatabaseReference mDatabaseRef, mFriendsDatabase;
+
+    public FriendsFragment() {} // Required empty public constructor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mMainview = inflater.inflate(R.layout.fragment_friends, container, false);
-        mFriendlist = (RecyclerView) mMainview.findViewById(R.id.friendslist);
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser()!=null)
-        {
-            mcurrent_userid = mAuth.getCurrentUser().getUid();
-        }
-        else
-        {
-            startActivity(new Intent(getActivity(),LoginActivity.class));
+        View view = inflater.inflate(R.layout.fragment_friends, container, false);
+        ButterKnife.bind(this, view);
 
-        }
-
-        mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friend").child(mcurrent_userid);
-        mDatabase2= FirebaseDatabase.getInstance().getReference().child("users");
-        mFriendlist.setHasFixedSize(true);
-        mFriendlist.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        return mMainview;
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseRecyclerOptions<Friend> optionfiriends=
-                new FirebaseRecyclerOptions.Builder<Friend>()
-                .setQuery(mFriendsDatabase,Friend.class)
-                .setLifecycleOwner(this)
-                .build();
-        FirebaseRecyclerAdapter<Friend, FriendsViewHolder> friendsRecyclerAdapter = new
-                FirebaseRecyclerAdapter<Friend, FriendsViewHolder>(optionfiriends)
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String currentUserUid = currentUser.getUid();
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("users");
+            mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("friends").child(currentUserUid);
 
-                {
+            setRecyclerView();
+        } else {
+            startActivity(new Intent(getActivity(),LoginActivity.class));
+            getActivity().finish();
+        }
+    }
+
+    private void setRecyclerView() {
+        mFriendsRecyclerView.setHasFixedSize(true);
+        mFriendsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        FirebaseRecyclerAdapter adapter = newAdapter();
+        mFriendsRecyclerView.setAdapter(adapter);
+    }
+
+    protected FirebaseRecyclerAdapter newAdapter() {
+
+        FirebaseRecyclerOptions<Friend> options =
+                new FirebaseRecyclerOptions.Builder<Friend>()
+                        .setQuery(mFriendsDatabase,Friend.class)
+                        .setLifecycleOwner(this)
+                        .build();
+
+        return new FirebaseRecyclerAdapter<Friend, FriendsViewHolder>(options) {
                     @NonNull
                     @Override
                     public FriendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -92,8 +90,8 @@ public class FriendsFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull final FriendsViewHolder holder, int position, @NonNull Friend model) {
                         holder.setDate(model.getDate());
 
-                        final String list_user_id=getRef(position).getKey();
-                        mDatabase2.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                        final String listUserUid = getRef(position).getKey();
+                        mDatabaseRef.child(listUserUid ).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 final String username=dataSnapshot.child("name").getValue().toString();
@@ -114,72 +112,22 @@ public class FriendsFragment extends Fragment {
                                     @Override
                                     public void onClick(View v) {
                                         Intent chatintent=new Intent(getContext(),ChatActivity.class);
-                                        chatintent.putExtra("user_id",list_user_id);
+                                        chatintent.putExtra("user_id",listUserUid );
                                         chatintent.putExtra("user_name",username);
                                         chatintent.putExtra("user_profileimage",userthumb_img);
                                         startActivity(chatintent);
                                     }
                                 });
-
                             }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
+                            @Override public void onCancelled(DatabaseError databaseError) {}
                         });
                     }
-
-                /*    @Override
-                    protected void populateViewHolder(final FriendsViewHolder friendsviewholder, final Friend
-                            friends, int position) {
-
-                        friendsviewholder.setDate(friends.getDate());
-
-                        final String list_user_id=getRef(position).getKey();
-                        mDatabase2.child(list_user_id).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                 final String username=dataSnapshot.child("name").getValue().toString();
-                                 final String userthumb_img=dataSnapshot.child("thumb_image").getValue().toString();
-                                String userstatus=dataSnapshot.child("status").getValue().toString();
-                               // String useronline=dataSnapshot.child("online").getValue().toString();
-                                friendsviewholder.setName(username);
-                                friendsviewholder.setStatus(userstatus);
-                                friendsviewholder.setThumb_image(userthumb_img,getContext());
-                                if (dataSnapshot.hasChild("online")){
-                                    String useronline=dataSnapshot.child("online").getValue().toString();
-                                    friendsviewholder.setUserOnline(useronline);
-                                }
-
-
-                                friendsviewholder.mView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-
-                                        Intent chatintent=new Intent(getContext(),ChatActivity.class);
-                                        chatintent.putExtra("user_id",list_user_id);
-                                        chatintent.putExtra("user_name",username);
-                                        chatintent.putExtra("user_profileimage",userthumb_img);
-                                        startActivity(chatintent);
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-                    }*/
                 };
-
-        mFriendlist.setAdapter(friendsRecyclerAdapter);
     }
+
     public static class FriendsViewHolder extends RecyclerView.ViewHolder{
-     View mView;
+        View mView;
 
         public FriendsViewHolder(View itemView) {
             super(itemView);
@@ -200,7 +148,7 @@ public class FriendsFragment extends Fragment {
             userstatus.setText(status);
         }
 
-      public void setImage(String image,Context ctx){
+        public void setImage(String image,Context ctx){
             CircleImageView circleImageView2=(CircleImageView)mView.findViewById(R.id.item_image);
             Picasso.with(ctx).load(image).placeholder(R.mipmap.icon).into(circleImageView2);
         }
@@ -213,6 +161,5 @@ public class FriendsFragment extends Fragment {
                 useronline.setVisibility(View.INVISIBLE);
             }
         }
-
     }
 }

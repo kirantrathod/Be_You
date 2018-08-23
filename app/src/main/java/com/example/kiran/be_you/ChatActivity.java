@@ -123,8 +123,6 @@ public class ChatActivity extends AppCompatActivity {
         mMessagelist.setLayoutManager(mlinearlayout);
         mMessagelist.setAdapter(mAdapter);
         loadMessages();
-        
-
 
         mAdd_image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,14 +186,9 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
 
         msend_message_btn.setOnClickListener(new View.OnClickListener() {
@@ -249,30 +242,13 @@ public class ChatActivity extends AppCompatActivity {
                 //messagesList.clear();
                 mRefreshlayout.setRefreshing(false);
                 mlinearlayout.scrollToPositionWithOffset(10,0);
-
             }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
     private void loadMessages() {
@@ -298,29 +274,11 @@ public class ChatActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-
     }
 
     private void sendMessage() {
@@ -380,11 +338,6 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 }
             });
-
-
-
         }
     }
-
-
 }
