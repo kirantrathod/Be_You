@@ -1,24 +1,16 @@
-package com.example.kiran.be_you;
+package com.example.kiran.be_you.model;
 
-/**
- * Created by Kiran on 6/30/2017.
- */
+public class User {
+    public String name, uid, image, status, thumb_image, you;
 
-public class   Users {
-    public String name;
-    public String image;
-    public String status;
-    public String thumb_image;
-    public String you;
-public Users(){
+    public User() {} // Required empty public constructor
 
-}
-    public Users(String name, String image, String status, String thumb_image) {
+    public User(String name, String uid, String image, String status, String thumb_image) {
         this.name = name;
+        this.uid = uid;
         this.image = image;
         this.status = status;
         this.thumb_image = thumb_image;
-
     }
 
     public String getName() {
@@ -27,6 +19,10 @@ public Users(){
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getImage() {

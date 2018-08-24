@@ -7,7 +7,7 @@ import android.provider.Settings;
  * Created by Kiran on 7/23/2017.
  */
 
-public class Get_Time_ago {
+public class GetTimeAgo {
 
     /*
  * Copyright 2012 Google Inc.

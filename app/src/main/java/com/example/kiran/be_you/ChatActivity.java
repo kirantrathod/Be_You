@@ -16,8 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.kiran.be_you.model.Message;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,9 +28,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton mAdd_image_btn;
     private RecyclerView mMessagelist;
     private SwipeRefreshLayout mRefreshlayout;
-    private final List<Messages> messagesList=new ArrayList<>();
+    private final List<Message> messagesList=new ArrayList<>();
     private LinearLayoutManager mlinearlayout;
     private MessageAdapter mAdapter;
     private static final int TOTAL_ITEMS_TO_LOAD=6;
@@ -70,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
         muserref1.child("online").setValue("true");
 
         mchattoolbar=(Toolbar) findViewById(R.id.toolbarchat);
-       // mProfileimage=(CircleImageView) findViewById(R.id.chat_profile_image) ;
+       // mProfileimage=(CircleImageView) SettingsActivity(R.id.chat_profile_image) ;
        setSupportActionBar(mchattoolbar);
        android.support.v7.app.ActionBar actionBar=getSupportActionBar();
        actionBar.setDisplayHomeAsUpEnabled(true);
@@ -125,8 +123,6 @@ public class ChatActivity extends AppCompatActivity {
         mMessagelist.setLayoutManager(mlinearlayout);
         mMessagelist.setAdapter(mAdapter);
         loadMessages();
-        
-
 
         mAdd_image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +148,7 @@ public class ChatActivity extends AppCompatActivity {
                     mLast_seenview.setText("Online");
                 }
                 else{
-                  Get_Time_ago getTimeAgo=new Get_Time_ago();
+                  GetTimeAgo getTimeAgo=new GetTimeAgo();
                    long lastTime=Long.parseLong(lastseenonline);
 
                    String last_seen_time=getTimeAgo.getTimeAgo(lastTime,getApplicationContext());
@@ -190,14 +186,9 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
 
         msend_message_btn.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +219,7 @@ public class ChatActivity extends AppCompatActivity {
         messageQuery1.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Messages message2=dataSnapshot.getValue(Messages.class);
+                Message message2=dataSnapshot.getValue(Message.class);
                 String messagekey=dataSnapshot.getKey();
 
                 if (!mPrevkey.equals(messagekey))
@@ -251,30 +242,13 @@ public class ChatActivity extends AppCompatActivity {
                 //messagesList.clear();
                 mRefreshlayout.setRefreshing(false);
                 mlinearlayout.scrollToPositionWithOffset(10,0);
-
             }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
     private void loadMessages() {
@@ -285,7 +259,7 @@ public class ChatActivity extends AppCompatActivity {
         messageQuery.orderByChild("time").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Messages message1=dataSnapshot.getValue(Messages.class);
+                Message message1=dataSnapshot.getValue(Message.class);
                // itemPos++;
                 //String messagekey=dataSnapshot.getKey();
                 /*if (itemPos==1){
@@ -300,29 +274,11 @@ public class ChatActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            @Override public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-
     }
 
     private void sendMessage() {
@@ -382,11 +338,6 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 }
             });
-
-
-
         }
     }
-
-
 }

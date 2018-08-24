@@ -2,24 +2,20 @@ package com.example.kiran.be_you;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -88,7 +84,7 @@ public class RequestFragment extends Fragment {
                     @NonNull
                     @Override
                     public Friends_reqViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_single_layout,parent,false);
+                        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item_layout,parent,false);
                         return new Friends_reqViewHolder(mView);
                     }
 
@@ -175,16 +171,16 @@ public class RequestFragment extends Fragment {
             mview1=itemView;
         }
         public void setName(String name){
-            TextView usernameview=(TextView) mview1.findViewById(R.id.singledisplayname);
+            TextView usernameview=(TextView) mview1.findViewById(R.id.item_name);
             usernameview.setText(name);
         }
         public void setStatus(String status){
-            TextView userstatus=(TextView) mview1.findViewById(R.id.singlestatus);
+            TextView userstatus=(TextView) mview1.findViewById(R.id.item_status);
             userstatus.setText(status);
         }
 
         public void setThumb_image(String thumb_image,Context ctx){
-            CircleImageView circleImageView2=(CircleImageView)mview1.findViewById(R.id.singleprofile_image);
+            CircleImageView circleImageView2=(CircleImageView)mview1.findViewById(R.id.item_image);
             Picasso.with(ctx).load(thumb_image).placeholder(R.mipmap.icon).into(circleImageView2);
         }
     }

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/singleprofile_image"
+        android:id="@+id/item_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentStart="true"
@@ -16,36 +16,36 @@
         android:src="@mipmap/icon" />
 
     <TextView
-        android:id="@+id/singledisplayname"
+        android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/singleprofile_image"
+        android:layout_alignTop="@+id/item_image"
         android:layout_marginStart="18dp"
         android:layout_marginTop="1dp"
-        android:layout_toEndOf="@+id/singleprofile_image"
+        android:layout_toEndOf="@+id/item_image"
         android:text="@string/display_names09"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/singlestatus"
+        android:id="@+id/item_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/singledisplayname"
-        android:layout_below="@+id/singledisplayname"
+        android:layout_alignStart="@+id/item_name"
+        android:layout_below="@+id/item_name"
         android:layout_marginTop="4dp"
         android:text="@string/default_status"
         android:textColor="@android:color/black"
         android:textSize="13sp" />
 
     <TextView
-        android:id="@+id/singledate"
+        android:id="@+id/item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:layout_below="@+id/singlestatus"
+        android:layout_below="@+id/item_status"
         android:layout_marginTop="3dp"
-        android:layout_alignStart="@+id/singlestatus"
+        android:layout_alignStart="@+id/item_status"
         />
 
     <ImageView
@@ -53,10 +53,10 @@
         android:layout_width="13dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/online"
-        android:layout_below="@+id/singledisplayname"
+        android:layout_below="@+id/item_name"
         android:visibility="invisible"
         app:srcCompat="@mipmap/online"
-        android:layout_alignParentStart="@+id/singledisplayname"
+        android:layout_alignParentStart="@+id/item_name"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="78dp" />
 

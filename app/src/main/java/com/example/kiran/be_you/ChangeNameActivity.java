@@ -17,12 +17,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class change_displayname extends AppCompatActivity {
+import butterknife.ButterKnife;
+
+public class ChangeNameActivity extends AppCompatActivity {
     private Button msavechanges;
     private EditText mdiplayname;
     //firebase
     private DatabaseReference mDatabasereference;
-    private FirebaseUser mcurrentuser;
 
     //progressbar
     private ProgressDialog mprogress;
@@ -30,10 +31,10 @@ public class change_displayname extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_displayname);
-        //firebase
-        mcurrentuser= FirebaseAuth.getInstance().getCurrentUser();
-        String currentuid=mcurrentuser.getUid();
-        mDatabasereference= FirebaseDatabase.getInstance().getReference().child("users").child(currentuid);
+        ButterKnife.bind(this);
+
+        mDatabasereference= FirebaseDatabase.getInstance()
+                .getReference("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         msavechanges=(Button) findViewById(R.id.savechangbtn1);
         mdiplayname=(EditText)findViewById(R.id.changedisplayname_plaintext);
@@ -41,7 +42,7 @@ public class change_displayname extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //progressbar
-                mprogress=new ProgressDialog(change_displayname.this);
+                mprogress=new ProgressDialog(ChangeNameActivity.this);
                 mprogress.setTitle("Saving Changes!");
                 mprogress.setMessage("Please wait while loading.");
                 mprogress.setCanceledOnTouchOutside(false);
@@ -53,19 +54,15 @@ public class change_displayname extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             mprogress.dismiss();
-                            Intent reverseintent=new Intent(change_displayname.this,AccountSettingActivity.class);
+                            Intent reverseintent=new Intent(ChangeNameActivity.this,SettingsActivity.class);
                             startActivity(reverseintent);
 
                         }else{
                             Toast.makeText(getApplicationContext(),"There was some error in saving changes",Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
-
             }
         });
-
-
     }
 }

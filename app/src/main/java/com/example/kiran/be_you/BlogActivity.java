@@ -77,7 +77,7 @@ public class BlogActivity extends AppCompatActivity {
         final String title_val=mposttitle.getText().toString().trim();
         final String description_val=mpostdescription.getText().toString().trim();
         if (!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(description_val) && mImageuri!=null){
-            mprogress.setTitle("Posting Your post...");
+            mprogress.setTitle("Posting Your Post...");
             mprogress.setMessage("Please wait while loading!");
             mprogress.show();
 
@@ -112,7 +112,7 @@ public class BlogActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 mprogress.dismiss();
-                                Toast.makeText(BlogActivity.this,"Your post has posted",Toast.LENGTH_LONG).show();
+                                Toast.makeText(BlogActivity.this,"Your Post has posted",Toast.LENGTH_LONG).show();
                             }
                         }
                     });*/

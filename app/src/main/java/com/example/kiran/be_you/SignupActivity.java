@@ -42,7 +42,7 @@ public class SignupActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        // btnSignIn = (Button) findViewById(R.id.sign_in_button);
+        // btnSignIn = (Button) SettingsActivity(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         display_name = (EditText) findViewById(R.id.displayname_textview);
         inputEmail = (EditText) findViewById(R.id.email);
@@ -90,8 +90,9 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!gender.equals("male") ||gender.equals("female")){
-                    Toast.makeText(getApplicationContext(), "Please Enter gender value in lowercase or make sure spelling is right", Toast.LENGTH_SHORT).show();
+
+                if (!gender.equals("male")  &&  !gender.equals("female")) {
+                    Toast.makeText(getApplicationContext(), "Please enter gender value in lowercase or make sure spelling is right", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mprogress.setTitle("Signing Up...");
@@ -112,7 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignupActivity.this, "Your account has created.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "Your account has been created.", Toast.LENGTH_SHORT).show();
                                 //progressBar.setVisibility(View.GONE);
                                 mprogress.dismiss();
                                 // If sign in fails, display a message to the user. If sign in succeeds
@@ -134,6 +135,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                     HashMap<String, String> usermap = new HashMap<>();
                                     usermap.put("name", displayname);
+                                    usermap.put("uid", uid);
                                     usermap.put("status", "Hey,There I am using Be_You!");
                                     usermap.put("device_token",DeviceToken);
                                     usermap.put("image", "https://firebasestorage.googleapis.com/v0/b/beyou-a7151.appspot.com/o/profile_images%2FkTZxthCkQebTzdM7o5KC0miNxPw2.jpg?alt=media&token=8ba6019e-9f12-4714-bb4f-015e4b963b23");
@@ -150,8 +152,8 @@ public class SignupActivity extends AppCompatActivity {
                                     
                                    // usermap.put("you","You");
                                     //blog creating
-                                  // usermap.put("title","post!");
-                                   // usermap.put("desc","Hey its post");
+                                  // usermap.put("title","Post!");
+                                   // usermap.put("desc","Hey its Post");
                                     //usermap.put("blog_image","https://firebasestorage.googleapis.com/v0/b/beyou-a7151.appspot.com/o/profile_images%2FZbqQPAbUPIeAKPkMEXaIA8WU7rn2.jpg?alt=media&token=1bcc9ef7-519c-4707-8341-b7fec546d159");
                                     mDatabase.setValue(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override

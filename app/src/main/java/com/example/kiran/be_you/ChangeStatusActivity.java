@@ -56,7 +56,7 @@ public class ChangeStatusActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             mprogress.dismiss();
-                            Intent reverseintent=new Intent(ChangeStatusActivity.this,AccountSettingActivity.class);
+                            Intent reverseintent=new Intent(ChangeStatusActivity.this,SettingsActivity.class);
                             startActivity(reverseintent);
 
                         }else{
