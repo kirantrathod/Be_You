@@ -38,6 +38,6 @@ The Gradle file has been edited for security purpose. You need to include your o
     
     
  ## Contribution:
-  Most welcome for bug reports and modification through fork. 
+  Most welcome for bug reports and modification. 
 
 
