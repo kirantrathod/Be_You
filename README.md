@@ -41,4 +41,6 @@ The Gradle file has been edited for security purpose. You need to include your o
  ## Contribution:
   Most welcome for bug reports and modification. 
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/Kiran09)
+## Donation:
+If this project help you reduce time to develop, you can give me a cup of coffee :)<br>
+                          [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/Kiran09)
