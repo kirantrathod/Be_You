@@ -41,4 +41,4 @@ The Gradle file has been edited for security purpose. You need to include your o
  ## Contribution:
   Most welcome for bug reports and modification. 
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](paypal.me/Kiran09)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/Kiran09)
