@@ -4,7 +4,7 @@ Be_You is a android chat application, which is kind of influenced by existing so
 ## Things you can do with this application:
  (1) Create new account & LogIn any time<br>
  (2) Send or Receive friend request.<br>
- (3) Accept or Decline received friend reuest<br>
+ (3) Accept or Decline received friend request<br>
  (4) Cancle sent friend request<br>
  (5) Change Profile Picture<br>
  (6) Change Status<br>
