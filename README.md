@@ -34,7 +34,7 @@ The Gradle file has been edited for security purpose. You need to include your o
  Install  .apk file in your android device by extracting given zip file.
  Create account if you are new to application.
   Well thats it!!! You are ready to use application.
- [app-debug.zip](https://github.com/kirantrathod/Be_You/files/2171329/app-debug.zip)
+ [app-release.zip](https://github.com/kirantrathod/Be_You/files/2542981/app-release.zip)
     
     
     
