@@ -13,9 +13,9 @@ Be_You is a android chat application, which is kind of influenced by existing so
 ## Warning
 The Gradle file has been edited for security purpose. You need to include your own project's gradle Fields in "google services.json" file. Without that the app won't run.
 
-To add google-services.json file follow steps:
-(1)Download google-services.json file from your firebase project (Firebase=>Project Settings=>"Download google-services.json")
-(2)Paste that  file into android studio at "app" directory.
+To add google-services.json file follow steps:<br>
+(1)Download google-services.json file from your firebase project ( Firebase=>Project Settings=>"Download google-services.json" )<br>
+(2)Paste that  file into android studio at "app" directory.<br>
 
 ## LogIn Page:                                                 
 <p align="center" style="border: 3px solid black">
