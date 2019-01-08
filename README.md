@@ -42,11 +42,11 @@ To add google-services.json file follow steps:<br>
 <img src="https://user-images.githubusercontent.com/26267268/41977123-3c77a736-7a3c-11e8-9908-ab92283e6630.jpg" width="300" height="500">      <img src="https://user-images.githubusercontent.com/26267268/41977248-7c099d8c-7a3c-11e8-90fb-b1d9d02f7457.jpg" width="300" height="500">
  </p>
 
-## Installation:
- Install  .apk file in your android device by extracting given zip file.
+## Installation: 
+ Install Be_You.apk file in your android device by extracting given zip file.
  Create account if you are new to application.
   Well thats it!!! You are ready to use application.
- [app-release.zip](https://github.com/kirantrathod/Be_You/files/2542981/app-release.zip)
+ [Be_You.zip](https://github.com/kirantrathod/Be_You/files/2736836/app-debug.zip)
     
     
     
