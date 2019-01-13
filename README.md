@@ -38,10 +38,19 @@ To add google-services.json file follow steps:<br>
 <img src="https://user-images.githubusercontent.com/26267268/51082878-72e7a500-1735-11e9-8ddb-8f61093cd8af.jpg" width="300" height="500" hspace=20>       <img src="https://user-images.githubusercontent.com/26267268/51082877-724f0e80-1735-11e9-9c89-dea760908c1e.jpg" width="300" height="500" hspace=20>
  </p>
  
+ <br>
+ 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/26267268/41977123-3c77a736-7a3c-11e8-9908-ab92283e6630.jpg" width="300" height="500" hspace=20>      <img src="https://user-images.githubusercontent.com/26267268/41977248-7c099d8c-7a3c-11e8-90fb-b1d9d02f7457.jpg" width="300" height="500" hspace=20>
  </p>
-
+ <br>
+ 
+## Add Post:
+<p align="center">
+<img src="https://user-images.githubusercontent.com/26267268/51082864-49c71480-1735-11e9-9ca3-e41698e3c7c0.jpg" width="300" height="500" hspace=20> 
+ </p>
+ 
+ 
 ## Installation: 
  Install Be_You.apk file in your android device by extracting given zip file.
  Create account if you are new to application.
