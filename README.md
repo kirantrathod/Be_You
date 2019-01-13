@@ -49,6 +49,8 @@ To add google-services.json file follow steps:<br>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/26267268/51082864-49c71480-1735-11e9-9ca3-e41698e3c7c0.jpg" width="300" height="500" hspace=20> 
  </p>
+<br>
+
  
  
 ## Installation: 
