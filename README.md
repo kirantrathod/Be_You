@@ -19,7 +19,7 @@ To add google-services.json file follow steps:<br>
 
 ## LogIn Page:                                                 
 <p align="center" style="border: 3px solid black">
-<img src="https://user-images.githubusercontent.com/26267268/41976462-dab32cd8-7a3a-11e8-96a7-c4d4266f1cc8.jpg" width="300" height="500" > 
+<img src="https://user-images.githubusercontent.com/26267268/51082850-1e442a00-1735-11e9-8045-ea6b9436a4e1.jpg" width="300" height="500" > 
 </p>
 
 ## Create Account Page:
@@ -27,11 +27,24 @@ To add google-services.json file follow steps:<br>
 <img src="https://user-images.githubusercontent.com/26267268/41976454-d483d362-7a3a-11e8-91ad-af35ba6e9af5.jpg" width="300" height="500">
 </p>
 
-## Update Profile:
+## Profile:
 <p align="center">
-<img src="https://user-images.githubusercontent.com/26267268/41976865-a9348598-7a3b-11e8-9bad-db2aec1ab4dd.jpg" width="300" height="500">
+<img src="https://user-images.githubusercontent.com/26267268/51082860-3ae06200-1735-11e9-92b3-1ee724c0133e.jpg" width="300" height="500">
 </p>
 
+## Emoji Added:
+<p align="center">
+<img src="https://user-images.githubusercontent.com/26267268/51082878-72e7a500-1735-11e9-8ddb-8f61093cd8af.jpg" width="300" height="500">      <img src="https://user-images.githubusercontent.com/26267268/51082877-724f0e80-1735-11e9-9c89-dea760908c1e.jpg" width="300" height="500">
+ </p>
+## Add Post Page:
+<p align="center">
+<img src="https://user-images.githubusercontent.com/26267268/51082864-49c71480-1735-11e9-9ca3-e41698e3c7c0.jpg" width="300" height="500">
+</p>
+## Timline:
+<p align="center">
+<img src="https://user-images.githubusercontent.com/26267268/51082870-5ba8b780-1735-11e9-9ca7-22933de0bc40.jpg" width="300" height="500">        <img src="https://user-images.githubusercontent.com/26267268/51082871-5c414e00-1735-11e9-9974-bf2e61a76c88.jpg" width="300" height="500">
+ </p>
+ 
 ## Other Pages:
 <p align="center">
 <img src="https://user-images.githubusercontent.com/26267268/41976943-d4877282-7a3b-11e8-806b-e80767a9c41d.jpg" width="300" height="500">      <img src="https://user-images.githubusercontent.com/26267268/41977146-4949b828-7a3c-11e8-9cbe-41e4a934a446.jpg" width="300" height="500">
