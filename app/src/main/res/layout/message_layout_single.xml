@@ -21,9 +21,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
-        android:src="@mipmap/icon" />
+        android:src="@mipmap/icon"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp" />
 
-    <TextView
+    <com.vanniktech.emoji.EmojiTextView
         android:id="@+id/singlemessagedisplayname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,13 +33,15 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/singlemessageprofile_image"
-        android:text="@string/display_names09"
+        android:text=""
         android:textSize="16sp"
         android:textColor="@android:color/black"
-        tools:ignore="RelativeOverlap" />
+        tools:ignore="RelativeOverlap"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/singlemessageprofile_image" />
 
 
-    <TextView
+    <com.vanniktech.emoji.EmojiTextView
         android:id="@+id/singlemessageview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,21 +49,25 @@
         android:layout_below="@+id/singlemessagedisplayname"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
-        android:text="@string/message"
+        android:text=""
         android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:maxLines="1" />
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:layout_alignLeft="@+id/singlemessagedisplayname"
+        android:layout_marginRight="20dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/time"
-            android:text="@string/kiran"
+            android:text=""
             android:textSize="12sp"
             android:textColor="@android:color/black"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="30dp"
             android:layout_marginTop="2dp"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp" />
 
 
     <TextView
@@ -75,7 +83,9 @@
         android:text="@string/online1"
         android:textSize="12sp"
         android:textColor="@android:color/black"
-        tools:ignore="RelativeOverlap" />
+        tools:ignore="RelativeOverlap"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="78dp" />
 
 
    </RelativeLayout>

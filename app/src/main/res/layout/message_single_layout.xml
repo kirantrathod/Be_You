@@ -55,7 +55,7 @@
                         android:orientation="vertical"
                         >
 
-                        <TextView
+                        <com.vanniktech.emoji.EmojiTextView
                             android:id="@+id/message_text_out"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                             android:autoLink="all"
                             android:maxWidth="200dp"
                             android:padding="4dp"
-                            android:background="@drawable/message_owner_background"
+                            android:background="#fff6f6"
                             android:text="hi there i am using be you"
                             android:textColor="@android:color/black"
                             android:textColorHighlight="#14A1B3"
@@ -82,17 +82,17 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <TextView
+                    <com.vanniktech.emoji.EmojiTextView
                         android:id="@+id/message_text_in"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:autoLink="all"
                         android:maxWidth="200dp"
-                        android:background="@drawable/message_text_background"
                         android:padding="4dp"
                         android:text="...."
-                        android:textColor="@android:color/white"
+                        android:background="#fff6f6"
+                        android:textColor="@android:color/black"
                         android:textColorHighlight="#14A1B3"
                         android:textColorLink="#1a86c9"
                         android:textSize="18sp"

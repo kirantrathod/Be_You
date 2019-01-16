@@ -29,7 +29,7 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,6 +43,7 @@
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
+            android:theme="@style/NoActionBar."
             android:label="Log In" />
         <activity
             android:name=".AccountSettingActivity"

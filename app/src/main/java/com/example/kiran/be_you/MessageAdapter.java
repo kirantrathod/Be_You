@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.kiran.be_you.Messages;
 import com.example.kiran.be_you.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.vanniktech.emoji.EmojiTextView;
 
 import java.util.List;
 
@@ -40,15 +41,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView messageTextIn, messageTextOut;
+        public EmojiTextView messageTextIn, messageTextOut;
         public CardView messageCard;
         public LinearLayout messageIn, messageOut, mainMessageLayout;
 
         public MessageViewHolder(View view) {
             super(view);
 
-            messageTextIn = (TextView) view.findViewById(R.id.message_text_in);
-            messageTextOut = (TextView) view.findViewById(R.id.message_text_out);
+            messageTextIn = (EmojiTextView) view.findViewById(R.id.message_text_in);
+            messageTextOut = (EmojiTextView) view.findViewById(R.id.message_text_out);
            //messageCard = (CardView) view.findViewById(R.id.message_card);
             messageIn = (LinearLayout) view.findViewById(R.id.message_layout_in);
             messageOut = (LinearLayout) view.findViewById(R.id.message_layout_out);

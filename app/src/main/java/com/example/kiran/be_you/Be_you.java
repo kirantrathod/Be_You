@@ -1,7 +1,9 @@
 package com.example.kiran.be_you;
 
 import android.app.Application;
+import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -13,6 +15,10 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
+import com.vanniktech.emoji.EmojiManager;
+import com.vanniktech.emoji.ios.IosEmojiProvider;
+
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_AUTO;
 
 /**
  * Created by Kiran on 7/2/2017.
@@ -30,7 +36,7 @@ public class Be_you extends MultiDexApplication {
         Picasso.Builder builder=new Picasso.Builder(this);
         builder.downloader(new OkHttpDownloader(this,Integer.MAX_VALUE));
         Picasso built=builder.build();
-        built.setIndicatorsEnabled(true);
+        built.setIndicatorsEnabled(false);
         built.setLoggingEnabled(true);
         Picasso.setSingletonInstance(built);
        mAuth=FirebaseAuth.getInstance();
@@ -51,6 +57,17 @@ public class Be_you extends MultiDexApplication {
                 }
             });
         }
+
+        EmojiManager.install(new IosEmojiProvider());
+       /* AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().build());
+        }*/
+
+
+
+
 
     }
 }

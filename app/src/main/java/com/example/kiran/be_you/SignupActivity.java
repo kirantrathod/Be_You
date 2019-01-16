@@ -93,17 +93,21 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!gender.equals("male") ||gender.equals("female")){
+               /* if (!gender.equals("male") || gender.equals("female")){
                     Toast.makeText(getApplicationContext(), "Please Enter gender value in lowercase or make sure spelling is right", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
                 mprogress.setTitle("Signing Up...");
                 mprogress.setMessage("Please wait..You will be logged in after signing up");
                 mprogress.setCanceledOnTouchOutside(false);
                 mprogress.show();
                // progressBar.setVisibility(View.VISIBLE);
-                reg_user(displayname, email, password,gender);
-
+                if(gender.equals("male")||gender.equals("female")){
+                    reg_user(displayname, email, password,gender);
+                }
+                else{
+                    return;
+                }
                /* //-------------------device token-------------------------------------
                 String currentuser_id=auth.getCurrentUser().getUid();
                 String DeviceToken= FirebaseInstanceId.getInstance().getToken();
@@ -139,6 +143,7 @@ public class SignupActivity extends AppCompatActivity {
                                     usermap.put("name", displayname);
                                     usermap.put("status", "Hey,There I am using Be_You!");
                                     usermap.put("device_token",DeviceToken);
+                                    usermap.put("friends","0");
                                     usermap.put("image", "https://firebasestorage.googleapis.com/v0/b/beyou-a7151.appspot.com/o/profile_images%2FkTZxthCkQebTzdM7o5KC0miNxPw2.jpg?alt=media&token=8ba6019e-9f12-4714-bb4f-015e4b963b23");
                                    // usermap.put("thumb_image", "default");
                                     usermap.put("gender",gender);

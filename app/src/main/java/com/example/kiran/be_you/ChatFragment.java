@@ -3,6 +3,7 @@ package com.example.kiran.be_you;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.vanniktech.emoji.EmojiTextView;
 
 import java.util.Map;
 
@@ -39,14 +41,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class ChatFragment extends Fragment {
     private RecyclerView mchatist;
-    private DatabaseReference mchatDatabase;
+    private DatabaseReference mchatDatabase,mchatTime;
     private DatabaseReference mDatabase2,muserref2;
     private FirebaseAuth mAuth2;
     private TextView mtime;
-    private FirebaseRecyclerAdapter<Messages,chatviewholder> chatrecycleradapter;
+    private LinearLayoutManager mlinearlayout;
+    private FirebaseRecyclerAdapter<Conv,chatviewholder> chatrecycleradapter;
     private String mcurrent_userid2;
     private View mMainview2;
-   // private Query db2;
+   private Query query;
     private  DatabaseReference mRootref;
 
     public ChatFragment() {
@@ -73,11 +76,18 @@ public class ChatFragment extends Fragment {
 
         mchatDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mcurrent_userid2);
         mchatDatabase.keepSynced(true);
+        mchatTime=FirebaseDatabase.getInstance().getReference().child("chat").child(mcurrent_userid2);
+        query=mchatTime.orderByChild("timestamp");
+        query.keepSynced(true);
         mRootref=FirebaseDatabase.getInstance().getReference();
         mDatabase2= FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase2.keepSynced(true);
         mchatist.setHasFixedSize(true);
-        mchatist.setLayoutManager(new LinearLayoutManager(getContext()));
+        mlinearlayout=new LinearLayoutManager(getContext());
+        mchatist.setLayoutManager(mlinearlayout);
+        mlinearlayout.setStackFromEnd(true);
+        mlinearlayout.setReverseLayout(true);
+
         return mMainview2;
 
       //  return inflater.inflate(R.layout.fragment_chat, container, false);
@@ -86,15 +96,21 @@ public class ChatFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         muserref2= FirebaseDatabase.getInstance().getReference().child("users").child(mAuth2.getCurrentUser().getUid());
         muserref2.child("online").setValue("true");
-        FirebaseRecyclerOptions<Messages> options2=
-                new FirebaseRecyclerOptions.Builder<Messages>()
-                .setQuery(mchatDatabase,Messages.class)
+
+
+
+        FirebaseRecyclerOptions<Conv> options2=
+                new FirebaseRecyclerOptions.Builder<Conv>()
+                .setQuery(query,Conv.class)
                 .setLifecycleOwner(this)
                 .build();
+
+
                 chatrecycleradapter=new
-                            FirebaseRecyclerAdapter<Messages, chatviewholder>(options2) {
+                            FirebaseRecyclerAdapter<Conv, chatviewholder>(options2) {
                     @NonNull
                     @Override
                     public chatviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -103,82 +119,25 @@ public class ChatFragment extends Fragment {
                     }
 
                     @Override
-                    protected void onBindViewHolder(@NonNull final chatviewholder holder, int position, @NonNull Messages model) {
-                        // viewHolder2.setMessage(model.getMessage());
-                        // viewHolder2.setType(model.getType());
+                    protected void onBindViewHolder(@NonNull final chatviewholder holder, int position, @NonNull final Conv model) {
                         final String list_user_id1 = getRef(position).getKey();
-                        DatabaseReference sequesnce=mRootref.child("chat").child(mcurrent_userid2).child(list_user_id1);
-                        sequesnce.orderByChild("tiimestamp").addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                mDatabase2.child(list_user_id1).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        final String username = dataSnapshot.child("name").getValue().toString();
-                                        final String userthumb_img = dataSnapshot.child("thumb_image").getValue().toString();
-                                        final String userstatus=dataSnapshot.child("status").getValue().toString();
-                                        final String gender=dataSnapshot.child("gender").getValue().toString();
-                                        if (dataSnapshot.hasChild("online")){
-                                            String useronline=dataSnapshot.child("online").getValue().toString();
-                                            holder.setUserOnline(useronline);
-                                        }
-                                        //  String userstatus = dataSnapshot.child("status").getValue().toString();
-                                        // String useronline=dataSnapshot.child("online").getValue().toString();
-                                        holder.setName(username);
-                                        //viewHolder2.setStatus(userstatus);
-                                        holder.setThumb_image(userthumb_img, getContext());
 
-
-                                        holder.mview2.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent intent10 = new Intent(getContext(), ChatActivity.class);
-                                                intent10.putExtra("user_id", list_user_id1);
-                                                intent10.putExtra("user_name",username);
-                                                intent10.putExtra("user_status",userstatus);
-                                                intent10.putExtra("user_profileimage",userthumb_img);
-                                                intent10.putExtra("gender",gender);
-                                                startActivity(intent10);
-                                                muserref2.child("online").setValue("true");
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                            }
-
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                            }
-
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-
-
-                        mchatDatabase.child(list_user_id1).orderByChild("time").addChildEventListener(new ChildEventListener() {
+                        Query lastMessageQuery = mchatDatabase.child(list_user_id1).orderByChild("time").limitToLast(1);
+                        lastMessageQuery.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot Snapshot, String s) {
                                 String message=Snapshot.child("message").getValue().toString();
-                                holder.setMessage(message);
+                                String from=Snapshot.child("from").getValue().toString();
+                                if (from.equals(list_user_id1)) {
+                                    holder.setMessage(message, model.isSeen());
+                                }
+                                else if (from.equals(mcurrent_userid2)){
+                                    holder.setMessage(message,true);
+
+                                }
+                                else {
+                                    holder.setMessage(message,true);
+                                }
                                 String lastmsg_time=Snapshot.child("time").getValue().toString();
                                 //String image=dataSnapshot.child("image").getValue().toString();
 
@@ -212,118 +171,56 @@ public class ChatFragment extends Fragment {
 
                             }
                         });
-                    }
-
-       /*             @Override
-            protected void populateViewHolder(final chatviewholder viewHolder2, Messages model, int position) {
-               // viewHolder2.setMessage(model.getMessage());
-               // viewHolder2.setType(model.getType());
-                final String list_user_id1 = getRef(position).getKey();
-                DatabaseReference sequesnce=mRootref.child("chat").child(mcurrent_userid2).child(list_user_id1);
-                sequesnce.orderByChild("tiimestamp").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        mDatabase2.child(list_user_id1).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                final String username = dataSnapshot.child("name").getValue().toString();
-                                final String userthumb_img = dataSnapshot.child("thumb_image").getValue().toString();
-                                final String userstatus=dataSnapshot.child("status").getValue().toString();
-                                if (dataSnapshot.hasChild("online")){
-                                    String useronline=dataSnapshot.child("online").getValue().toString();
-                                    viewHolder2.setUserOnline(useronline);
-                                }
-                                //  String userstatus = dataSnapshot.child("status").getValue().toString();
-                                // String useronline=dataSnapshot.child("online").getValue().toString();
-                                viewHolder2.setName(username);
-                                //viewHolder2.setStatus(userstatus);
-                                viewHolder2.setThumb_image(userthumb_img, getContext());
 
 
-                                viewHolder2.mview2.setOnClickListener(new View.OnClickListener() {
+
+                                mDatabase2.child(list_user_id1).addValueEventListener(new ValueEventListener() {
                                     @Override
-                                    public void onClick(View v) {
-                                        Intent intent10 = new Intent(getContext(), ChatActivity.class);
-                                        intent10.putExtra("user_id", list_user_id1);
-                                        intent10.putExtra("user_name",username);
-                                        intent10.putExtra("user_status",userstatus);
-                                        intent10.putExtra("user_profileimage",userthumb_img);
-                                        startActivity(intent10);
-                                        muserref2.child("online").setValue("true");
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        final String username = dataSnapshot.child("name").getValue().toString();
+                                        final String userthumb_img = dataSnapshot.child("thumb_image").getValue().toString();
+                                        final String userstatus=dataSnapshot.child("status").getValue().toString();
+                                         final String gender=dataSnapshot.child("gender").getValue().toString();
+                                        if (dataSnapshot.hasChild("online")){
+                                            String useronline=dataSnapshot.child("online").getValue().toString();
+                                            holder.setUserOnline(useronline);
+                                        }
+                                        //  String userstatus = dataSnapshot.child("status").getValue().toString();
+                                        // String useronline=dataSnapshot.child("online").getValue().toString();
+                                        holder.setName(username);
+                                        //viewHolder2.setStatus(userstatus);
+                                        holder.setThumb_image(userthumb_img, getContext());
+
+
+                                        holder.mview2.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent10 = new Intent(getContext(), ChatActivity.class);
+                                                intent10.putExtra("user_id", list_user_id1);
+                                                intent10.putExtra("user_name",username);
+                                                intent10.putExtra("user_status",userstatus);
+                                                intent10.putExtra("user_profileimage",userthumb_img);
+                                                intent10.putExtra("gender",gender);
+                                                startActivity(intent10);
+                                                muserref2.child("online").setValue("true");
+                                            }
+                                        });
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
                                     }
                                 });
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
 
 
-                mchatDatabase.child(list_user_id1).orderByChild("time").addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot Snapshot, String s) {
-                        String message=Snapshot.child("message").getValue().toString();
-                        viewHolder2.setMessage(message);
-                        String lastmsg_time=Snapshot.child("time").getValue().toString();
-                        //String image=dataSnapshot.child("image").getValue().toString();
-
-                            Get_Time_ago getTimeAgo=new Get_Time_ago();
-                            long lastTime=Long.parseLong(lastmsg_time);
-
-                            String last_message_time=getTimeAgo.getTimeAgo(lastTime,getContext());
-                          //  mtime.setText(last_message_time);
-                            viewHolder2.setTime(last_message_time);
 
 
                     }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot Snapshot, String s) {
 
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot Snapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot Snapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-            }*/
         };
         mchatist.setAdapter(chatrecycleradapter);
     }
@@ -334,12 +231,22 @@ public class ChatFragment extends Fragment {
             mview2=itemView;
         }
         public void setName(String name){
-            TextView usernameview1=(TextView) mview2.findViewById(R.id.singlemessagedisplayname);
+            EmojiTextView usernameview1=(EmojiTextView) mview2.findViewById(R.id.singlemessagedisplayname);
             usernameview1.setText(name);
         }
-       public void setMessage(String message){
-           TextView usermessage=(TextView) mview2.findViewById(R.id.singlemessageview);
+       public void setMessage(String message,boolean isSeen){
+           EmojiTextView usermessage=(EmojiTextView) mview2.findViewById(R.id.singlemessageview);
            usermessage.setText(message);
+           if(!isSeen){
+               usermessage.setTypeface(usermessage.getTypeface(), Typeface.BOLD);
+               final int res=R.dimen.emoji_size_default;
+               usermessage.setEmojiSizeRes(res,true);
+           }
+           else {
+               usermessage.setTypeface(usermessage.getTypeface(), Typeface.NORMAL);
+               final  int res1=R.dimen.emoji_Normal_size;
+               usermessage.setEmojiSizeRes(res1,true);
+           }
        }
 
 

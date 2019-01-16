@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,27 +15,37 @@
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/white"
         android:src="@mipmap/icon"
         app:civ_border_color="@color/bg_main"
-        app:civ_border_overlay="true" />
+        app:civ_border_overlay="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <android.support.v7.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/settingcircleimage"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingcircleimage">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            >
 
-            <TextView
+            <com.vanniktech.emoji.EmojiTextView
                 android:id="@+id/settings_displaynames"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
@@ -44,8 +54,7 @@
                 android:layout_toLeftOf="@+id/changedisplayname_btn2"
                 android:layout_toStartOf="@+id/changedisplayname_btn2"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/display_names"
+                android:text="@string/display_name"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="22sp" />
@@ -54,8 +63,8 @@
                 android:id="@+id/changedisplayname_btn2"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
@@ -72,18 +81,22 @@
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_below="@+id/cardview"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview">
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp">
 
-            <TextView
+            <com.vanniktech.emoji.EmojiTextView
                 android:id="@+id/setting_status"
                 android:layout_width="290dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_margin="8dp"
                 android:layout_toLeftOf="@+id/changestatusbtn2"
@@ -101,8 +114,8 @@
                 android:id="@+id/changestatusbtn2"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
@@ -121,12 +134,53 @@
         android:layout_height="40dp"
         android:layout_below="@+id/cardview2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/mybutton"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
+        android:text="@string/change_image"
         android:textColor="@android:color/white"
-        android:text="@string/change_image" />
+        app:layout_constraintBottom_toTopOf="@+id/Friendtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview2" />
+
+    <TextView
+        android:id="@+id/Friendtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_changeimage_btn"
+        android:layout_marginBottom="28dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginStart="84dp"
+        android:padding="5dp"
+        android:text="Total Friends:"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_changeimage_btn"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/Friendtitle"
+        android:layout_toRightOf="@+id/Friendtitle"
+        android:padding="5dp"
+        android:text="count"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toEndOf="@+id/Friendtitle" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

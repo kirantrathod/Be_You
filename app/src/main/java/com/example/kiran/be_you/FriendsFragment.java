@@ -9,8 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -38,8 +41,10 @@ public class FriendsFragment extends Fragment {
     private DatabaseReference mFriendsDatabase;
     private DatabaseReference mDatabase2;
     private FirebaseAuth mAuth;
+    private LinearLayoutManager mlinaerlayout;
     private String mcurrent_userid;
     private View mMainview;
+    private Query queryDate;
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -64,9 +69,15 @@ public class FriendsFragment extends Fragment {
         }
 
         mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friends").child(mcurrent_userid);
+        queryDate=mFriendsDatabase.orderByChild("date");
+        queryDate.keepSynced(true);
         mDatabase2= FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase2.keepSynced(true);
         mFriendlist.setHasFixedSize(true);
-        mFriendlist.setLayoutManager(new LinearLayoutManager(getContext()));
+        mlinaerlayout=new LinearLayoutManager(getContext());
+        mFriendlist.setLayoutManager(mlinaerlayout);
+        mlinaerlayout.setReverseLayout(true);
+        mlinaerlayout.setStackFromEnd(true);
 
         return mMainview;
     }
@@ -76,7 +87,7 @@ public class FriendsFragment extends Fragment {
         super.onStart();
         FirebaseRecyclerOptions<Friends> optionfiriends=
                 new FirebaseRecyclerOptions.Builder<Friends>()
-                .setQuery(mFriendsDatabase,Friends.class)
+                .setQuery(queryDate,Friends.class)
                 .setLifecycleOwner(this)
                 .build();
         FirebaseRecyclerAdapter<Friends, FriendsViewHolder> friendsRecyclerAdapter = new
@@ -101,8 +112,10 @@ public class FriendsFragment extends Fragment {
                                 final String username=dataSnapshot.child("name").getValue().toString();
                                 //final String img=dataSnapshot.child("image").getValue().toString();
                                 final String userthumb_img=dataSnapshot.child("thumb_image").getValue().toString();
+                                final String gender=dataSnapshot.child("gender").getValue().toString();
+                                final  String status=dataSnapshot.child("status").getValue().toString();
                                 String userstatus=dataSnapshot.child("status").getValue().toString();
-                                // String useronline=dataSnapshot.child("online").getValue().toString();
+
                                 holder.setName(username);
                                 holder.setStatus(userstatus);
                                 holder.setImage(userthumb_img,getContext());
@@ -111,15 +124,86 @@ public class FriendsFragment extends Fragment {
                                     holder.setUserOnline(useronline);
                                 }
 
+                                //////////////////////////////////////
 
+
+
+                            /*    holder.mView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        PopupMenu popup = new PopupMenu(view.getContext(), holder.mView);
+                                        //inflating menu from xml resource
+                                        popup.inflate(R.menu.popup_menu);
+
+                                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                            @Override
+                                            public boolean onMenuItemClick(MenuItem item) {
+                                                switch (item.getItemId()) {
+                                                    case R.id.action_settings_c:
+                                                        mDatabase.child(post_key).removeValue();
+                                                        //handle menu1 click
+                                                        break;
+                                                    case R.id.card_del:
+                                                        //handle menu2 click
+                                                        break;
+                                                }
+                                                return false;
+                                            }
+                                        });
+                                        //displaying the popup
+                                        popup.show();
+
+                                    }
+                                });*/
+
+
+                                ///////////////////////////////////////
                                 holder.mView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent chatintent=new Intent(getContext(),ChatActivity.class);
+                                        ///////////////////
+                                        PopupMenu popup=new PopupMenu(v.getContext(),holder.mView);
+                                        popup.inflate(R.menu.popup_menu);
+                                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                            @Override
+                                            public boolean onMenuItemClick(MenuItem item) {
+                                                switch (item.getItemId()) {
+                                                    case R.id.messageto:
+                                                       // mDatabase.child(post_key).removeValue();
+                                                        //handle menu1 click
+                                                        Intent chatintent=new Intent(getContext(),ChatActivity.class);
+                                                        chatintent.putExtra("user_id",list_user_id);
+                                                        chatintent.putExtra("user_name",username);
+                                                        chatintent.putExtra("user_profileimage",userthumb_img);
+                                                        chatintent.putExtra("user_status",status);
+                                                        chatintent.putExtra("gender",gender);
+                                                        startActivity(chatintent);
+                                                        break;
+                                                    case R.id.toprofile:
+                                                        //handle menu2 click
+                                                        Intent profileIntent=new Intent(getContext(),ProfileActivity.class);
+                                                        profileIntent.putExtra("user_id",list_user_id);
+                                                        /*profileIntent.putExtra("user_name",username);
+                                                        profileIntent.putExtra("user_profileimage",userthumb_img);
+                                                        profileIntent.putExtra("user_status",status);
+                                                        profileIntent.putExtra("gender",gender);*/
+                                                        startActivity(profileIntent);
+                                                        break;
+                                                }
+                                                return false;
+                                            }
+                                        });
+                                        popup.show();
+
+                                        ////////////////////////
+                                       /* Intent chatintent=new Intent(getContext(),ChatActivity.class);
                                         chatintent.putExtra("user_id",list_user_id);
                                         chatintent.putExtra("user_name",username);
                                         chatintent.putExtra("user_profileimage",userthumb_img);
-                                        startActivity(chatintent);
+                                        chatintent.putExtra("user_status",status);
+                                        chatintent.putExtra("gender",gender);
+                                        startActivity(chatintent);*/
                                     }
                                 });
 

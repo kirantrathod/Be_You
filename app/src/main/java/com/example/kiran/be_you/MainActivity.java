@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.container2, newFragment);
         transaction.addToBackStack(null);
 
+
         // Commit the transaction
         transaction.commit();
 

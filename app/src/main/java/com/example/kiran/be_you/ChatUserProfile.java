@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -22,13 +24,17 @@ public class ChatUserProfile extends AppCompatActivity {
         final String user_status=getIntent().getStringExtra("user_status");
         final String user_profile=getIntent().getStringExtra("user_profileimage");
         final String gender=getIntent().getStringExtra("gender");
-        if (gender.equals("female"))
+        Picasso picasso=Picasso.with(this);
+        if(gender.equals("female"))
         {
-            Picasso.with(ChatUserProfile.this).load(user_profile).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.female_avatar).into(mprofileimage);
+
+            picasso.with(ChatUserProfile.this).load(user_profile).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.female_avatar).into(mprofileimage);
+            picasso.setIndicatorsEnabled(false);
         }
         else
         {
-            Picasso.with(ChatUserProfile.this).load(user_profile).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.male).into(mprofileimage);
+            picasso.with(ChatUserProfile.this).load(user_profile).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.male).into(mprofileimage);
+            picasso.setIndicatorsEnabled(false);
         }
 
         mdisplayname.setText(user_name);

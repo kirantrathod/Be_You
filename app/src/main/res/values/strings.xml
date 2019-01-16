@@ -106,4 +106,6 @@
     <!- -->
     <string name="interstitial_ad_unit_id">your interstitial_ad_id</string>
     <string name="go_to_adview">go to adview</string>
+    <string name="type_a_message">Type a Message</string>
+    <string name="write_new_name">Write New Name</string>
 </resources>

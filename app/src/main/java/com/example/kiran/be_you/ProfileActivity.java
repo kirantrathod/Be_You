@@ -2,6 +2,7 @@ package com.example.kiran.be_you;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,8 +21,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.vanniktech.emoji.EmojiTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,15 +35,16 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     private ImageView mprofileimage;
-    private TextView mdisplayname,mdisplaystatus,mfriendcount;
+    private EmojiTextView mdisplayname,mdisplaystatus;
     private Button msendbtn,mdecline_btn;
     private DatabaseReference mDatabaseref,mnotificationDatabase;
     private ProgressDialog mprogress,mprogress2,mprogress3;
     private String mcurrent_state;
-    private DatabaseReference mFriendreqDatabase,mMessagedatabse;
+    private DatabaseReference mFriendreqDatabase,mMessagedatabse,mchatdatabase;
     private DatabaseReference mFriendsDatabase,mrootref;
     private FirebaseUser mcurrentuser;
     private DatabaseReference muserref;
+    //private  Picasso picasso;
     private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +54,16 @@ public class ProfileActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         muserref= FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
         muserref.child("online").setValue("true");
-
-
+        //picasso=Picasso.with(this);
+        mchatdatabase=FirebaseDatabase.getInstance().getReference().child("chat");
 
         //progressDialogs
         mprogress2=new ProgressDialog(this);
         mprogress3=new ProgressDialog(this);
 
         mprofileimage=(ImageView)findViewById(R.id.displayimage);
-        mdisplayname=(TextView)findViewById(R.id.chat_displayname);
-        mdisplaystatus=(TextView)findViewById(R.id.status);
+        mdisplayname=(EmojiTextView) findViewById(R.id.chat_displayname);
+        mdisplaystatus=(EmojiTextView) findViewById(R.id.status);
        msendbtn=(Button)findViewById(R.id.sendfriendrequestbtn);
         mdecline_btn=(Button)findViewById(R.id.declinefriendrequestbtn);
         mdecline_btn.setVisibility(View.INVISIBLE);
@@ -101,25 +105,52 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String display_name=dataSnapshot.child("name").getValue().toString();
                 String display_status=dataSnapshot.child("status").getValue().toString();
-                //String display_image=dataSnapshot.child("image").getValue().toString();
+                String display_image=dataSnapshot.child("image").getValue().toString();
                 String Thumb_image=dataSnapshot.child("thumb_image").getValue().toString();
                 mdisplayname.setText(display_name);
                 mdisplaystatus.setText(display_status);
                 String gender=dataSnapshot.child("gender").getValue().toString();
+
                 if (gender.equals("female"))
                 {
-                    Picasso.with(ProfileActivity.this).load(Thumb_image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.female_avatar).into(mprofileimage);
+
+                    Picasso.with(ProfileActivity.this).load(Thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
+                            .placeholder(R.mipmap.female_avatar).fit().into(mprofileimage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            mprogress.dismiss();
+                        }
+                        @Override
+                        public void onError() {
+                            mprogress.dismiss();
+                            Toast.makeText(ProfileActivity.this,"Unable to load image Please check Internet!",Toast.LENGTH_LONG).show();
+                        }
+                    });
+
                 }
                 else
                 {
-                    Picasso.with(ProfileActivity.this).load(Thumb_image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.male).into(mprofileimage);
+                    Picasso.with(ProfileActivity.this).load(Thumb_image).networkPolicy(NetworkPolicy.OFFLINE)
+                            .placeholder(R.mipmap.male).fit().into(mprofileimage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            mprogress.dismiss();
+                        }
+
+                        @Override
+                        public void onError() {
+                            mprogress.dismiss();
+                            Toast.makeText(ProfileActivity.this,"Unable to load image Please check Internet!",Toast.LENGTH_LONG).show();
+                        }
+                    });
+
                 }
 
                 //------CHECKING TO OWN ACCOUNT TO RESTRICT------------------
                 if (mDatabaseref.child(mcurrentuser.getUid()).equals(mDatabaseref.child(userid))){
                     msendbtn.setVisibility(View.INVISIBLE);
                     mdecline_btn.setVisibility(View.INVISIBLE);
-                    mprogress.dismiss();
+                    //mprogress.dismiss();
                    // Intent intentpro=new Intent(ProfileActivity.this,AccountSettingActivity.class);
                    // startActivity(intentpro);
                 }
@@ -299,6 +330,12 @@ public class ProfileActivity extends AppCompatActivity {
                  }
                  //-----------------------------------------UNFRIEND------------------------------------------------
                  else if (mcurrent_state.equals("friends")){
+                     mchatdatabase.child(mcurrentuser.getUid()).child(userid).removeValue();
+                     mchatdatabase.child(userid).child(mcurrentuser.getUid()).removeValue();
+
+                    mMessagedatabse.child(mcurrentuser.getUid()).child(userid).removeValue();
+                    mMessagedatabse.child(userid).child(mcurrentuser.getUid()).removeValue();
+
                      mFriendsDatabase.child(mcurrentuser.getUid()).child(userid)
                              .removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                          @Override
@@ -354,7 +391,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

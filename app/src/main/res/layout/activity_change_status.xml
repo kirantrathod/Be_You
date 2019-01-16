@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/changeStatusLayout"
     tools:context="com.example.kiran.be_you.ChangeStatusActivity">
-    <EditText
+    <!--<EditText
         android:id="@+id/changestatus_plaintext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,34 +17,84 @@
         android:ems="10"
         android:hint="@string/your_status"
         android:inputType="textMultiLine"
-        />
+        />-->
+    <LinearLayout
+        android:id="@+id/buttonslinearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/savechangbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/writestatus">
+
+        <com.vanniktech.emoji.EmojiEditText
+            android:id="@+id/main_activity_chat_bottom_message_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="@string/type_a_message"
+            android:imeOptions="actionSend|flagNoExtractUi"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="3" />
+
+        <ImageButton
+            android:id="@+id/main_activity_emoji"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/emoji_ios_category_smileysandpeople"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/savechangbtn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonslinearlayout"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/changestatus_plaintext"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="45dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="292dp"
         android:background="@drawable/mybutton"
         android:text="@string/save_changes"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/writestatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/write_new_status"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:layout_marginTop="45dp"
-        android:text="@string/write_new_status" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

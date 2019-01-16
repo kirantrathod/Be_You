@@ -13,9 +13,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
-        android:src="@mipmap/icon" />
+        android:src="@mipmap/icon"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp" />
 
-    <TextView
+    <com.vanniktech.emoji.EmojiTextView
         android:id="@+id/singledisplayname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,9 +27,11 @@
         android:layout_toEndOf="@+id/singleprofile_image"
         android:text="@string/display_names09"
         android:textSize="16sp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/singleprofile_image" />
 
-    <TextView
+    <com.vanniktech.emoji.EmojiTextView
         android:id="@+id/singlestatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +40,8 @@
         android:layout_marginTop="4dp"
         android:text="@string/default_status"
         android:textColor="@android:color/black"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:layout_alignLeft="@+id/singledisplayname" />
 
     <TextView
         android:id="@+id/singledate"
@@ -46,7 +51,7 @@
         android:layout_below="@+id/singlestatus"
         android:layout_marginTop="3dp"
         android:layout_alignStart="@+id/singlestatus"
-        />
+        android:layout_alignLeft="@+id/singlestatus" />
 
     <ImageView
         android:id="@+id/online_icon"
@@ -58,6 +63,9 @@
         app:srcCompat="@mipmap/online"
         android:layout_alignParentStart="@+id/singledisplayname"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="78dp" />
+        android:layout_marginEnd="78dp"
+        android:layout_alignParentLeft="@+id/singledisplayname"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="78dp" />
 
 </RelativeLayout>

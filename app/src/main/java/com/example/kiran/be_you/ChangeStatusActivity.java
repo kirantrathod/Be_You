@@ -2,12 +2,17 @@ package com.example.kiran.be_you;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -17,10 +22,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.vanniktech.emoji.EmojiEditText;
+import com.vanniktech.emoji.EmojiPopup;
 
 public class ChangeStatusActivity extends AppCompatActivity {
+    final String TAG = "ChangeStatusActivity";
     private Button msavechanges;
     private EditText mstatus;
+    EmojiPopup emojiPopup;
+    EmojiEditText editText;
+    ImageView emojiButton;
+    ViewGroup rootView;
     //firebase
     private DatabaseReference mDatabasereference;
     private FirebaseUser mcurrentuser;
@@ -32,6 +44,12 @@ public class ChangeStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_status);
 
+        rootView = findViewById(R.id.changeStatusLayout);
+        editText = findViewById(R.id.main_activity_chat_bottom_message_edittext);
+        emojiButton = findViewById(R.id.main_activity_emoji);
+
+        emojiButton.setColorFilter(ContextCompat.getColor(this, R.color.emoji_icons), PorterDuff.Mode.SRC_IN);
+        emojiButton.setOnClickListener(ignore -> emojiPopup.toggle());
 
         //firebase
         mcurrentuser= FirebaseAuth.getInstance().getCurrentUser();
@@ -39,7 +57,7 @@ public class ChangeStatusActivity extends AppCompatActivity {
         mDatabasereference= FirebaseDatabase.getInstance().getReference().child("users").child(currentuid);
 
         msavechanges=(Button) findViewById(R.id.savechangbtn);
-        mstatus=(EditText)findViewById(R.id.changestatus_plaintext);
+       // mstatus=(EditText)findViewById(R.id.changestatus_plaintext);
         msavechanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +68,7 @@ public class ChangeStatusActivity extends AppCompatActivity {
                 mprogress.setCanceledOnTouchOutside(false);
                 mprogress.show();
 
-                String status=mstatus.getText().toString();
+                String status=editText.getText().toString();
                 mDatabasereference.child("status").setValue(status).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -68,6 +86,33 @@ public class ChangeStatusActivity extends AppCompatActivity {
 
             }
         });
+        setUpEmojiPopup();
 
+    }
+    @Override public void onBackPressed() {
+        if (emojiPopup != null && emojiPopup.isShowing()) {
+            emojiPopup.dismiss();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override protected void onStop() {
+        if (emojiPopup != null) {
+            emojiPopup.dismiss();
+        }
+
+        super.onStop();
+    }
+
+    private void setUpEmojiPopup() {
+        emojiPopup = EmojiPopup.Builder.fromRootView(rootView)
+                .setOnEmojiBackspaceClickListener(ignore -> Log.d(TAG, "Clicked on Backspace"))
+                .setOnEmojiClickListener((ignore, ignore2) -> Log.d(TAG, "Clicked on emoji"))
+                .setOnEmojiPopupShownListener(() -> emojiButton.setImageResource(R.drawable.ic_keyboard))
+                .setOnSoftKeyboardOpenListener(ignore -> Log.d(TAG, "Opened soft keyboard"))
+                .setOnEmojiPopupDismissListener(() -> emojiButton.setImageResource(R.drawable.emoji_ios_category_smileysandpeople))
+                .setOnSoftKeyboardCloseListener(() -> Log.d(TAG, "Closed soft keyboard"))
+                .build(editText);
     }
 }

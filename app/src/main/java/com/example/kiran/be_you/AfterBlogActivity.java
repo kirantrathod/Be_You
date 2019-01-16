@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +27,7 @@ public class AfterBlogActivity extends AppCompatActivity {
     private RecyclerView mpostlist;
     private DatabaseReference mDatabase;
     private LinearLayoutManager mlinearlayout;
+    private Query query;
     private FirebaseRecyclerAdapter<post,BlogViewHolder> firebaseRecyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,11 @@ public class AfterBlogActivity extends AppCompatActivity {
         mlinearlayout=new LinearLayoutManager(this);
         mpostlist.setHasFixedSize(true);
         mpostlist.setLayoutManager(mlinearlayout);
-       mlinearlayout.setReverseLayout(true);
-
+        mlinearlayout.setReverseLayout(true);
+        mlinearlayout.setStackFromEnd(true);
         mDatabase=FirebaseDatabase.getInstance().getReference().child("blogs").child(currentuid);
-        mDatabase.keepSynced(true);
+        query=mDatabase.orderByChild("timestamp");
+         mDatabase.keepSynced(true);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class AfterBlogActivity extends AppCompatActivity {
         super.onStart();
         FirebaseRecyclerOptions<post> optionpost=
                 new FirebaseRecyclerOptions.Builder<post>()
-                .setQuery(mDatabase,post.class)
+                .setQuery(query,post.class)
                 .setLifecycleOwner(this)
                 .build();
          firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<post, BlogViewHolder>(optionpost) {
@@ -65,9 +68,10 @@ public class AfterBlogActivity extends AppCompatActivity {
 
              @Override
              protected void onBindViewHolder(@NonNull BlogViewHolder holder, int position, @NonNull post model) {
+
                  holder.setTitle(model.getTitle());
                  holder.setDesc(model.getDesc());
-                 holder.setblog_image(getApplicationContext(),model.getBlog_image());
+                 holder.setBlog_image(model.getBlog_image(),getApplicationContext());
              }
 
             /* @Override
@@ -94,9 +98,10 @@ public class AfterBlogActivity extends AppCompatActivity {
             TextView post_desc=(TextView) mview.findViewById(R.id.postlist_desc);
             post_desc.setText(desc);
         }
-        public void setblog_image(Context ctx, String blog_image){
+        public void setBlog_image( String blog_image,Context ctx){
             ImageView post_image=(ImageView) mview.findViewById(R.id.postlist_image);
-            Picasso.with(ctx).load(blog_image).networkPolicy(NetworkPolicy.OFFLINE).into(post_image);
+            Picasso.with(ctx).load(blog_image).into(post_image);
+
         }
     }
 

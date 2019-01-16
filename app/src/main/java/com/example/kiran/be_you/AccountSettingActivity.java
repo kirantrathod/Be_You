@@ -10,16 +10,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,19 +33,19 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.vanniktech.emoji.EmojiTextView;
 
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
-
-import static android.R.attr.bitmap;
 
 public class AccountSettingActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
@@ -59,10 +57,13 @@ public class AccountSettingActivity extends AppCompatActivity {
     private StorageReference mimagestorage;
     private ProgressDialog mprogress;
     private CircleImageView mDisplayImage;
-    private TextView mname,mstatus;
+    private TextView mcount;
+    private EmojiTextView mname,mstatus;
     private DatabaseReference Muserref;
     private  FirebaseAuth Mauth;
+    private DatabaseReference mFriendsDatabase;
     private UploadTask uploadTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,10 @@ public class AccountSettingActivity extends AppCompatActivity {
         Muserref= FirebaseDatabase.getInstance().getReference().child("users").child(Mauth.getCurrentUser().getUid());
         Muserref.child("online").setValue("true");
 
+        mFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("Friends");
       // mchangestatus=(Button)findViewById(R.id.setting_statusbtn);
+
+
         //storage
         mimagestorage= FirebaseStorage.getInstance().getReference();
 
@@ -97,7 +101,7 @@ public class AccountSettingActivity extends AppCompatActivity {
             }
         });
 
-
+        mcount=(TextView)findViewById(R.id.count);
        mchangestatus2=(ImageButton)findViewById(R.id.changestatusbtn2);
         mchangestatus2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +120,8 @@ public class AccountSettingActivity extends AppCompatActivity {
 
 
         mDisplayImage=(CircleImageView)findViewById(R.id.settingcircleimage);
-        mname=(TextView)findViewById(R.id.settings_displaynames);
-        mstatus=(TextView)findViewById(R.id.setting_status);
+        mname=(EmojiTextView) findViewById(R.id.settings_displaynames);
+        mstatus=(EmojiTextView) findViewById(R.id.setting_status);
 
         mcurrentuser= FirebaseAuth.getInstance().getCurrentUser();
         String current_uid=mcurrentuser.getUid();
@@ -136,17 +140,27 @@ public class AccountSettingActivity extends AppCompatActivity {
                 String status=dataSnapshot.child("status").getValue().toString();
                 String thumbnail=dataSnapshot.child("thumb_image").getValue().toString();
                 String gender=dataSnapshot.child("gender").getValue().toString();
+                String Count=dataSnapshot.child("friends").getValue().toString();
                 mname.setText(name);
                 mstatus.setText(status);
+                mcount.setText(Count);
                // Picasso.with(AccountSettingActivity.this).load(image).placeholder(R.drawable.icon).into(mDisplayImage);
-                if (gender.equals("female"))
+                /*if (gender.equals("female"))
                 {
+                    Picasso.with(AccountSettingActivity.this).load(thumbnail)
+                            .networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.female_avatar).into(mDisplayImage);
+
+                }
+                else
+                {
+                    Picasso.with(AccountSettingActivity.this).load(thumbnail)
+                            .networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.male).into(mDisplayImage);
+
+                }*/
+                if (gender.equals("female")) {
                     Picasso.with(AccountSettingActivity.this).load(image)
                             .networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.female_avatar).into(mDisplayImage, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
+                        @Override public void onSuccess() {}
 
                         @Override
                         public void onError() {
@@ -154,14 +168,10 @@ public class AccountSettingActivity extends AppCompatActivity {
                         }
                     });
                 }
-                else
-                {
+                else {
                     Picasso.with(AccountSettingActivity.this).load(image)
                             .networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.mipmap.male).into(mDisplayImage, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
+                        @Override public void onSuccess() {}
 
                         @Override
                         public void onError() {
@@ -172,7 +182,22 @@ public class AccountSettingActivity extends AppCompatActivity {
 
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mFriendsDatabase.child(mcurrentuser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long count=dataSnapshot.getChildrenCount();
+                //mcount.setText((int) count);
+                mUserDatabase.child("friends").setValue(count);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -200,15 +225,21 @@ public class AccountSettingActivity extends AppCompatActivity {
                 mprogress.setCanceledOnTouchOutside(false);
                 mprogress.show();
                 Uri resultUri = result.getUri();
-                File thumb_filepath=new File(resultUri.getPath());
+                File thumb_filepath=new File(Objects.requireNonNull(resultUri.getPath()));
                 String currentuserid=mcurrentuser.getUid();
 
-                Bitmap thumb_bitmap= new Compressor(this)
-                        .setMaxWidth(250)
-                        .setMaxHeight(250)
-                        .setQuality(50)
-                        .compressToBitmap(thumb_filepath);
+                Bitmap thumb_bitmap= null;
+                try {
+                    thumb_bitmap = new Compressor(this)
+                            .setMaxWidth(250)
+                            .setMaxHeight(250)
+                            .setQuality(50)
+                            .compressToBitmap(thumb_filepath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                assert thumb_bitmap != null;
                 thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 final byte[] thumb_byte = baos.toByteArray();
 
@@ -220,7 +251,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                         if (!task.isSuccessful()) {
-                            throw task.getException();
+                            throw Objects.requireNonNull(task.getException());
                         }
                         return filepath.getDownloadUrl();
                     }
@@ -229,7 +260,8 @@ public class AccountSettingActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
-                            Map map=new HashMap();
+                            Map<String, Object> map=new HashMap<String, Object>();
+                            assert downloadUri != null;
                             map.put("image",downloadUri.toString());
                             mUserDatabase.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -246,7 +278,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                             });
 
                         } else {
-                            Toast.makeText(AccountSettingActivity.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AccountSettingActivity.this, "upload failed: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -255,7 +287,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                         if (!task.isSuccessful()) {
-                            throw task.getException();
+                            throw Objects.requireNonNull(task.getException());
                         }
                         return thumbPath.getDownloadUrl();
                     }
@@ -264,7 +296,7 @@ public class AccountSettingActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
-                            Map map=new HashMap();
+                            Map<String, Object> map=new HashMap<String, Object>();
                             map.put("thumb_image",downloadUri.toString());
                             mUserDatabase.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -335,7 +367,8 @@ public class AccountSettingActivity extends AppCompatActivity {
                     }
                 });*/
 
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            }
+            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }

@@ -9,16 +9,17 @@ public class   Users {
     public String image;
     public String status;
     public String thumb_image;
-    public String you;
+    public String gender;
 public Users(){
 
 }
-    public Users(String name, String image, String status, String thumb_image) {
+    public Users(String name, String image, String status, String thumb_image,String gender) {
         this.name = name;
         this.image = image;
         this.status = status;
         this.thumb_image = thumb_image;
-
+        this.image=image;
+        this.gender=gender;
     }
 
     public String getName() {
@@ -29,6 +30,12 @@ public Users(){
         this.name = name;
     }
 
+    public String getGender(){
+    return gender;
+    }
+    public void setGender(String gender){
+    this.gender=gender;
+    }
     public String getImage() {
         return image;
     }

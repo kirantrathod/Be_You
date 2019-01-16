@@ -5,15 +5,18 @@ package com.example.kiran.be_you;
  */
 
 public class post {
-    private String title,desc,blog_image;
+    private String title;
+    private String desc;
+    private String blog_image;
+    private String thumb_image;
     public post(){
 
     }
-
-    public post(String title, String desc, String blog_image) {
+    public post(String title, String desc, String blog_image, String thumb_image) {
         this.title = title;
         this.desc = desc;
         this.blog_image = blog_image;
+        this.thumb_image = thumb_image;
     }
 
     public String getTitle() {
@@ -38,5 +41,13 @@ public class post {
 
     public void setBlog_image(String blog_image) {
         this.blog_image = blog_image;
+    }
+
+    public String getThumb_image() {
+        return thumb_image;
+    }
+
+    public void setThumb_image(String thumb_image) {
+        this.thumb_image = thumb_image;
     }
 }
