@@ -64,6 +64,6 @@ To add google-services.json file follow steps:<br>
  ## Contribution:
   Most welcome for bug reports and modification. 
 
-## Donation:
+## Appreciation:
 If this project help you reduce time to develop, you can give me a cup of coffee :)<br>
                           [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/Kiran09)
