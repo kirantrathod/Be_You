@@ -59,6 +59,11 @@ public class Be_you extends MultiDexApplication {
         }
 
         EmojiManager.install(new IosEmojiProvider());
+       /* AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
+        if (BuildConfig.DEBUG) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().build());
+        }*/
 
 
 

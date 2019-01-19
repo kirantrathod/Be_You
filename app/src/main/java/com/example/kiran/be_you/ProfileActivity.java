@@ -46,7 +46,6 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference muserref;
     //private  Picasso picasso;
     private FirebaseAuth auth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

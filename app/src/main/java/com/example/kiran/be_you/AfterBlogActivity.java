@@ -74,6 +74,12 @@ public class AfterBlogActivity extends AppCompatActivity {
                  holder.setBlog_image(model.getBlog_image(),getApplicationContext());
              }
 
+            /* @Override
+            protected void populateViewHolder(BlogViewHolder viewHolder, post model, int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setDesc(model.getDesc());
+                viewHolder.setblog_image(getApplicationContext(),model.getBlog_image());
+            }*/
         };
         mpostlist.setAdapter(firebaseRecyclerAdapter);
     }

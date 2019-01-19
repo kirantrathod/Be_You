@@ -42,7 +42,6 @@ public class UsersActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private LinearLayoutManager mlinearlayout;
     static String gender;
-
     private FirebaseRecyclerAdapter<Users,UserViewHolder> firebaseRecyclerAdapter;
    // private FirebaseUser mcurrentuser;
     @Override

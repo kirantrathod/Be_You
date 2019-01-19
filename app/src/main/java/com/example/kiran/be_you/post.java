@@ -10,6 +10,7 @@ public class post {
     private String blog_image;
     private String thumb_image;
     public post(){
+
     }
     public post(String title, String desc, String blog_image, String thumb_image) {
         this.title = title;

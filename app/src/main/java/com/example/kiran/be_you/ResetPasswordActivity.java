@@ -30,7 +30,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
         btnBack = (Button) findViewById(R.id.btn_back);
        // progressBar = (ProgressBar) findViewById(R.id.progressBar);
         auth=FirebaseAuth.getInstance();
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

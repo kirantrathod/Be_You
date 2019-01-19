@@ -11,6 +11,7 @@ public class   Users {
     public String thumb_image;
     public String gender;
 public Users(){
+
 }
     public Users(String name, String image, String status, String thumb_image,String gender) {
         this.name = name;

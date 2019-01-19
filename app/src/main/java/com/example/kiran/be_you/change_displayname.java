@@ -29,6 +29,8 @@ public class change_displayname extends AppCompatActivity {
     final String TAG = "change_displayname";
 
     private Button msavechanges;
+    //private EditText mdiplayname;
+    //firebase
     private DatabaseReference mDatabasereference;
     private FirebaseUser mcurrentuser;
 

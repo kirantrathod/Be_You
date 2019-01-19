@@ -11,6 +11,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        tools:ignore="UselessParent">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/singlemessageprofile_image"
         android:layout_width="55dp"

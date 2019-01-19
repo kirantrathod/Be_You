@@ -31,5 +31,4 @@ public class chat_message  {
         this.seen = seen;
         this.timestamp = timestamp;
     }
-
 }

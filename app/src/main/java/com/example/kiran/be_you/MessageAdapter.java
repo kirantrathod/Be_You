@@ -25,6 +25,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public MessageAdapter(List<Messages> mMessageList){
 
         this.mMessageList = mMessageList;
+
     }
 
     @Override

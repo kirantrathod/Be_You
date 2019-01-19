@@ -44,7 +44,6 @@ public class RequestFragment extends Fragment {
     private Query db;
         public RequestFragment() {
             // Required empty public constructor
-
         }
 
 

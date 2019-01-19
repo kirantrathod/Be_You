@@ -17,7 +17,6 @@ class SectionsPageAdapter extends FragmentPagerAdapter{
     public void addFragment(Fragment fragment,String title){
         mFragmantList.add(fragment);
         mFragmentTitleList.add(title);
-
     }
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);

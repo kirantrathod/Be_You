@@ -75,7 +75,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         Muserref.child("online").setValue("true");
 
         mFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("Friends");
-
+      // mchangestatus=(Button)findViewById(R.id.setting_statusbtn);
 
 
         //storage
