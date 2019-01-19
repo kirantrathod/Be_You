@@ -57,8 +57,6 @@ public class BlogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog);
         mStorage = FirebaseStorage.getInstance().getReference();
-        //  FirebaseUser currentuser= FirebaseAuth.getInstance().getCurrentUser();
-        //String Currentuseruid=currentuser.getUid();
         FirebaseUser currentuser = FirebaseAuth.getInstance().getCurrentUser();
         Currentuseruid = currentuser.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("blogs").child(Currentuseruid).push();

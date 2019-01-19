@@ -57,7 +57,7 @@ public class ChangeStatusActivity extends AppCompatActivity {
         mDatabasereference= FirebaseDatabase.getInstance().getReference().child("users").child(currentuid);
 
         msavechanges=(Button) findViewById(R.id.savechangbtn);
-       // mstatus=(EditText)findViewById(R.id.changestatus_plaintext);
+
         msavechanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

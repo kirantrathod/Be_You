@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         mprogressBar=new ProgressDialog(this);

@@ -8,6 +8,7 @@ public class Friends {
     public Friends(){
 
     }
+
     public String date;
 
     public Friends(String date) {

@@ -6,7 +6,6 @@
     tools:context="com.example.kiran.be_you.ChatFragment"
     android:id="@+id/container2"
     >
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chatlist"
         android:layout_width="match_parent"

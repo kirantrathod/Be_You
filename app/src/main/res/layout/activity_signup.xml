@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.kiran.be_you.SignupActivity">
-
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"

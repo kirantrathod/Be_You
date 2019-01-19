@@ -96,7 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         final String user_name=getIntent().getStringExtra("user_name");
         final String user_status=getIntent().getStringExtra("user_status");
         final String user_profile=getIntent().getStringExtra("user_profileimage");
-        final String gender=getIntent().getStringExtra("gender");
+        //final String gender=getIntent().getStringExtra("gender");
 
         LayoutInflater inflater=(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View action_bar_view=Objects.requireNonNull(inflater).inflate(R.layout.chat_custom_bar,null);

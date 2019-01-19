@@ -10,7 +10,6 @@ public class Messages {
     private long time;
     private String from;
     public Messages(){
-
     }
 
     public String getMessage() {

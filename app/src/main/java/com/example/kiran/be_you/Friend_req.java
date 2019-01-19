@@ -9,6 +9,7 @@ public class Friend_req {
     public Friend_req(){
 
     }
+
     public Friend_req(String request_type) {
         this.request_type = request_type;
     }

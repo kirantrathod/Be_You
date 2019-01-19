@@ -1,21 +1,18 @@
 package com.example.kiran.be_you;
 
-/**
- * Created by Kiran on 8/21/2017.
- */
+public class Conv {
 
-public class chat_message  {
-    Boolean seen ;
-    long timestamp;
-    public chat_message(){
+    public boolean seen;
+    public long timestamp;
+
+    public Conv(){
 
     }
-
-    public Boolean getSeen() {
+    public boolean isSeen() {
         return seen;
     }
 
-    public void setSeen(Boolean seen) {
+    public void setSeen(boolean seen) {
         this.seen = seen;
     }
 
@@ -27,9 +24,8 @@ public class chat_message  {
         this.timestamp = timestamp;
     }
 
-    public chat_message(Boolean seen, long timestamp) {
+    public Conv(boolean seen, long timestamp) {
         this.seen = seen;
         this.timestamp = timestamp;
     }
-
 }

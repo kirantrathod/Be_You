@@ -97,9 +97,6 @@
             android:name=".Sent_Requests"
             android:label="Sent Friend Requests"
             android:parentActivityName=".AccountSettingActivity" />
-        <activity
-            android:name=".finale"
-            android:parentActivityName=".AccountSettingActivity" />
         <!-- This meta-data tag is required to use Google Play Services. -->
 
 

@@ -47,7 +47,6 @@ public class SignupActivity extends AppCompatActivity {
         display_name = (EditText) findViewById(R.id.displayname_textview);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
-
 //=========================================
         // Get a reference to the AutoCompleteTextView in the layout
         final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_gender);

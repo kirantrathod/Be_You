@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         auth=FirebaseAuth.getInstance();
 
-
         // this listener will be called when there is change in firebase user session
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override

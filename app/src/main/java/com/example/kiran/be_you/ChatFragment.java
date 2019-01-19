@@ -90,7 +90,7 @@ public class ChatFragment extends Fragment {
 
         return mMainview2;
 
-      //  return inflater.inflate(R.layout.fragment_chat, container, false);
+
     }
 
     @Override

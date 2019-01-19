@@ -39,7 +39,6 @@ public class ChatUserProfile extends AppCompatActivity {
 
         mdisplayname.setText(user_name);
         mdisplaystatus.setText(user_status);
-
     }
 }
 

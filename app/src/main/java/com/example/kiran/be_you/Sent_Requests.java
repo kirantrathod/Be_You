@@ -46,6 +46,7 @@ public class Sent_Requests extends AppCompatActivity {
         db=mDatabase.orderByChild("request_type").equalTo("sent");
         muserref=FirebaseDatabase.getInstance().getReference().child("users");
 
+
     }
 
     @Override
