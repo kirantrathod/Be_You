@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -105,7 +106,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <!--<AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/autocomplete_gender"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -116,7 +117,25 @@
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textStyle="bold"
-                tools:ignore="Deprecated,HardcodedText,LabelFor" />
+                tools:ignore="Deprecated,HardcodedText,LabelFor" />-->
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gender">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:id="@+id/radiobtn_male"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:layout_below="@+id/radiobtn_male"
+                    android:id="@+id/radiobtn_female"/>
+            </RadioGroup>
         </RelativeLayout>
 
         <Button

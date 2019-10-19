@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,6 +36,8 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputEditText genderEdittext;
     private DatabaseReference mDatabase,db1;
     private DatabaseReference mdevicetokendatabase;
+    private RadioGroup radiogrp;
+    private String gender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +50,16 @@ public class SignupActivity extends AppCompatActivity {
         display_name = (EditText) findViewById(R.id.displayname_textview);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
-
+        radiogrp=(RadioGroup)findViewById(R.id.radioGroup);
 //=========================================
-        // Get a reference to the AutoCompleteTextView in the layout
+    /*    // Get a reference to the AutoCompleteTextView in the layout
         final AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_gender);
 // Get the string array
         String[] countries = getResources().getStringArray(R.array.gender_array);
 // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
-        textView.setAdapter(adapter);
+        textView.setAdapter(adapter);*/
   //====================================================
 
         mprogress=new ProgressDialog(this);
@@ -69,13 +72,23 @@ public class SignupActivity extends AppCompatActivity {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                // String gender=genderEdittext.getText().toString().trim();
-                String gender=textView.getText().toString().trim();
+                //String gender=textView.getText().toString().trim();
                 // reg_user(displayname,email,password);
+                int r=radiogrp.getCheckedRadioButtonId();
+                if (r==R.id.radiobtn_male){
+                 gender="male";
+                }
+                else{
+                    gender="female";
+                }
                 if (TextUtils.isEmpty(displayname)) {
                     Toast.makeText(getApplicationContext(), "Enter Name To Display Name!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    Toast.makeText(getApplicationContext(), "Enter valid email address!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;

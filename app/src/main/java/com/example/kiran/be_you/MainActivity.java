@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
@@ -33,7 +34,8 @@ import static android.R.attr.id;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements ForceUpdateChecker.OnUpdateNeededListener {
   private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseUser mcurretuser;
@@ -211,5 +213,31 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
+    }
+///////////////////////////////////////////////////////
+    @Override
+    public void onUpdateNeeded(String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("New version available")
+                .setMessage("Please, update app to new version,You will be amazed to see new features")
+                .setPositiveButton("Update",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                redirectStore(updateUrl);
+                            }
+                        }).setNegativeButton("No, thanks",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).create();
+        dialog.show();
+    }
+    private void redirectStore(String updateUrl) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
